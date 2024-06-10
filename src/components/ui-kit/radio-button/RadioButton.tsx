@@ -8,13 +8,13 @@ const ItemWrapper = styled.div<{ checked?: boolean; disabled?: boolean }>`
   position: relative;
   &:hover {
     label {
-      border: 1px solid #3B892A;
+      border: 1px solid #6CB155;
       box-shadow: 0 0 0 2px rgba(44, 208, 158, 0.2);
       ${({ checked }) =>
         checked &&
         `
     box-shadow: none;
-    border: 6px solid #3B892A;
+    border: 6px solid #6CB155;
   `}
     }
   }
@@ -35,7 +35,7 @@ const RadioButtonLabel = styled.label<{
   ${({ checked }) =>
     checked &&
     `
-    border: 6px solid #3B892A;
+    border: 6px solid #6CB155;
   `}
   box-sizing: border-box;
 

@@ -1,6 +1,6 @@
 import { VisibilityState, type ColumnDef, Row } from "@tanstack/react-table";
 import { ReactElement } from "react";
-import { ProductsFilters } from "../../../modules/private/inventory-module/products/product-list/hooks/useProductsList";
+import { ProductsFilters } from "../../../modules/private/access-points-module/access-points/product-list/hooks/useProductsList";
 
 export interface PaginationControl {
   totalDocs: number;

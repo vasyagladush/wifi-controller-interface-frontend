@@ -12,7 +12,7 @@ const Body = styled.button`
   border: none;
   box-shadow: inset 0px 0px 0px 1px #dbe3eb;
   background-color: #ffffff;
-  color: #2a3b89;
+  color: #556CB1;
   text-align: center;
   border-radius: 5px;
   padding: 4px 14px;
@@ -25,7 +25,7 @@ const Body = styled.button`
 
   &:hover {
     box-shadow: none;
-    background-color: #2a3b89;
+    background-color: #556CB1;
     color: #ffffff;
   }
 

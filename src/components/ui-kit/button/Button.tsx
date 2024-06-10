@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { Spinner } from "..";
 
 const Contained = css`
-  background-color: #2a3b89;
+  background-color: #556CB1;
   color: #ffffff;
   border: none;
   &:hover {
@@ -22,7 +22,7 @@ const Contained = css`
 const Outlined = css`
   background-color: #ffffff;
   border: 1px solid #dbe3eb;
-  color: #2a3b89;
+  color: #556CB1;
   &:hover {
     border: 1px solid #8181a5;
   }
@@ -37,7 +37,7 @@ const Outlined = css`
 
 const Text = css`
   background-color: transparent;
-  color: #2a3b89;
+  color: #556CB1;
   border: none;
   font-weight: 400;
   &:hover {

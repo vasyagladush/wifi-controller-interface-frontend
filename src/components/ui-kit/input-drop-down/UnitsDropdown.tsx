@@ -47,7 +47,7 @@ const ValueSelect = styled.span`
   overflow: hidden;
   display: flex;
   align-items: center;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const DropDownListContainer = styled.div`
@@ -96,7 +96,7 @@ const CategoryTitle = styled(Typography)`
   font-weight: 400;
   font-size: 13px;
   line-height: 15px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const InputSection = styled.div`
@@ -125,7 +125,7 @@ const Search = styled.input<{ disabled?: boolean }>`
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  color: #2a3b89;
+  color: #556CB1;
   margin-left: -1px;
   padding: 7px 10px;
   box-sizing: border-box;

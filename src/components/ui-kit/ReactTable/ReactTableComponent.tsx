@@ -23,7 +23,7 @@ import { ArrowDownBlack } from "../../icons";
 import {
   ExpandVariantsBtn,
   IconForVariantsBtn,
-} from "../../../modules/private/inventory-module/tables/components/ExpandableVariantsTreeCell";
+} from "../../../modules/private/access-points-module/tables/components/ExpandableVariantsTreeCell";
 import { useNavigate } from "react-router-dom";
 import { AppRoutes } from "../../../constants/routes";
 
@@ -65,7 +65,7 @@ const Th = styled.th`
   padding: 15px;
   font-size: 12px;
   font-weight: 600;
-  color: #2a3b89;
+  color: #556CB1;
   :first-child {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -88,7 +88,7 @@ const Td = styled.td<{
   padding: ${({ padding }) => padding ?? "15px"};
   border-bottom: 1px solid #eeeeee;
   text-align: left;
-  color: #2a3b89;
+  color: #556CB1;
   cursor: pointer;
   :last-child {
     border-right: 0;
@@ -205,7 +205,7 @@ export const ReactTableComponent: FC<TableProps> = ({
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const onClickShowMore = (productId: string) => {
-    navigate(AppRoutes.Private.Inventory.PRODUCT_EDIT + "/" + productId, {
+    navigate(AppRoutes.Private.AccessPoints.AP_EDIT + "/" + productId, {
       state: { filters: appliedProductFilters },
     });
   };

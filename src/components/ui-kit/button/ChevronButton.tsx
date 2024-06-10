@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { LeftArrow } from "../../icons";
 
 const Icon = styled(LeftArrow)<{ direction: Direction }>`
-  color: #2a3b89;
+  color: #556CB1;
   ${({ direction }) =>
     direction === Direction.RIGHT && "transform: rotate(-180deg);"}
 `;

@@ -35,7 +35,7 @@ export const TooltipText: React.FunctionComponent<TooltipTextProps> = ({
           style={{
             fontSize: "12px",
             lineHeight: "12px",
-            backgroundColor: "#2a3b89",
+            backgroundColor: "#556CB1",
             borderRadius: "24px",
             position: "absolute",
           }}

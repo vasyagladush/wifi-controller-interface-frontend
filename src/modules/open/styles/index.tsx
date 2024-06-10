@@ -39,7 +39,7 @@ export const StyledLink = styled(Link)`
 
 export const TermsLink = styled(StyledLink)`
   text-decoration: underline;
-  color: #2a3b89;
+  color: #556CB1;
   &:visited {
     color: initial;
   }
@@ -71,8 +71,8 @@ export const ValidationWrapper = styled.div<{ active?: boolean }>`
   letter-spacing: 0;
   text-align: left;
   box-shadow: 0 2px 12px rgba(19, 39, 63, 0.15);
-  border-radius: 5px;
-  color: #2a3b89;
+  border-radius: 0px;
+  color: #556CB1;
   margin-top: ${(props) => (props.active ? "24px" : "0")};
   max-height: ${(props) => (props.active ? "300px" : "0")};
   height: auto;

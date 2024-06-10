@@ -21,7 +21,6 @@ import {
 import { useDeleteAPIKey } from "./hooks/useDeleteAPIKey";
 import { useDialogManager } from "../../../../../context/DialogManager";
 // import { usePolicyCheck } from "../../../hooks/usePolicyCheck";
-// import { Policies } from "@fena/toolkit-types";
 
 const MainContainer = styled.div`
   display: flex;
@@ -108,7 +107,7 @@ export const APIKeysList: React.FunctionComponent = () => {
     <MainContainer>
       <Typography
         variant={TypographyVariant.HEADER1}
-        style={{ color: "#2a3b89" }}
+        style={{ color: "#556CB1" }}
       >
         API
       </Typography>
@@ -116,7 +115,7 @@ export const APIKeysList: React.FunctionComponent = () => {
         <ViewRow>
           <Typography
             variant={TypographyVariant.HEADER2}
-            style={{ color: "#2a3b89", flex: 4 }}
+            style={{ color: "#556CB1", flex: 4 }}
           >
             API keys
           </Typography>

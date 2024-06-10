@@ -165,7 +165,7 @@ export const ProfileSettings: React.FunctionComponent = () => {
       <ContainerBox>
         <Typography
           variant={TypographyVariant.HEADER2}
-          style={{ color: "#2a3b89" }}
+          style={{ color: "#556CB1" }}
         >
           Personal information
         </Typography>

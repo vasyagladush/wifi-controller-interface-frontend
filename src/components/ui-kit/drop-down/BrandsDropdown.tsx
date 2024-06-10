@@ -59,7 +59,7 @@ const ValueSelect = styled.span`
   overflow: hidden;
   display: flex;
   align-items: center;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const DropDownListContainer = styled.div`
@@ -118,7 +118,7 @@ const SearchInput = styled.input`
   font-weight: 400;
   font-size: 13px;
   line-height: 20px;
-  color: #2a3b89;
+  color: #556CB1;
 
   border: 1px solid #dbe3eb;
   border-radius: 5px;
@@ -159,7 +159,7 @@ const ClearButton = styled(Button)`
   transition: 0.2s;
   :hover {
     box-shadow: none;
-    color: #2a3b89;
+    color: #556CB1;
   }
 `;
 

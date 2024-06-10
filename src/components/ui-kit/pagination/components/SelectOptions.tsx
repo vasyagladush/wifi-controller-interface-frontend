@@ -23,7 +23,7 @@ const DropDownHeader = styled.div<{
 `;
 
 const ArrowDown = styled(ArrowDownBlack)`
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const ArrowUp = styled(ArrowDownBlack)`
@@ -41,7 +41,7 @@ const ValueSelect = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const DropDownListContainer = styled.div`
@@ -67,7 +67,7 @@ const MenuItem = styled.li`
   font-weight: 500;
   line-height: 20px;
   text-transform: capitalize;
-  color: #2a3b89;
+  color: #556CB1;
   padding: 7px 8px 7px 20px;
   display: flex;
   align-items: center;

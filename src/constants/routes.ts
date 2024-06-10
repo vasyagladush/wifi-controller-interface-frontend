@@ -5,12 +5,13 @@ export namespace AppRoutes {
     }
   }
   export namespace Private {
-    export enum Inventory {
-      PRODUCT_LIST = "/private/inventory/products",
-      PRODUCT_LIST_STOCK = "/private/inventory/products/stock",
-      PRODUCT_CREATE = "/private/inventory/products/new",
-      PRODUCT_EDIT = "/private/inventory/products/edit",
-      CATEGORIES = "/private/inventory/categories",
+    export enum AccessPoints {
+      AP_LIST = "/private/access-points",
+      AP_CREATE = "/private/access-points/new",
+      AP_EDIT = "/private/access-points/edit",
+    }
+    export enum Monitor {
+      MONITOR = "/private/monitor",
     }
     export enum Profile {
       PROFILE_SETTINGS = "/private/profile/settings",

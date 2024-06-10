@@ -14,7 +14,7 @@ export const SwitchButton: FC<SwitchButtonProps> = ({
   return (
     <ReactSwitch
       className={className}
-      onColor="#3B892A"
+      onColor="#6CB155"
       height={18}
       width={40}
       disabled={disabled}

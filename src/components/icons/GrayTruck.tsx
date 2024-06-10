@@ -18,7 +18,7 @@ const SvgGrayTruck = (
     />
     <path
       d="M38 20.75H19.25V37H38V20.75ZM38 27h5l3.75 3.75V37H38V27ZM24.875 43.25a3.125 3.125 0 1 0 0-6.25 3.125 3.125 0 0 0 0 6.25ZM41.125 43.25a3.125 3.125 0 1 0 0-6.25 3.125 3.125 0 0 0 0 6.25Z"
-      stroke="#2a3b89"
+      stroke="#556CB1"
       strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"

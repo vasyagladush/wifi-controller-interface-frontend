@@ -6,7 +6,7 @@ import { AppRoutes } from "../../constants/routes";
 import { useModalManager } from "../../context/ModalManager";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import Header from "../header";
-import { Dot, MenuItemShoppingBag } from "../icons";
+import { AccessPoint, Dot, MenuItemShoppingBag, Monitor } from "../icons";
 import { LoadingBlock } from "../loading-block/LoadingBlock";
 import { SideMenu } from "../ui-kit";
 import { useUserContext } from "../../context/UserContextProvider";
@@ -55,63 +55,27 @@ export const PrivateLayout = () => {
   const menuItems = useMemo(
     () => [
       {
-        label: "Inventory",
-        icon: <MenuItemShoppingBag name="shopping-bag" />,
+        label: "Access points",
+        icon: <AccessPoint name="access-point" />,
         isActive:
           [
-            AppRoutes.Private.Inventory.PRODUCT_LIST,
-            AppRoutes.Private.Inventory.PRODUCT_LIST_STOCK,
-            AppRoutes.Private.Inventory.PRODUCT_CREATE,
-            AppRoutes.Private.Inventory.PRODUCT_EDIT,
-            AppRoutes.Private.Inventory.CATEGORIES,
+            AppRoutes.Private.AccessPoints.AP_LIST,
+            AppRoutes.Private.AccessPoints.AP_CREATE,
+            AppRoutes.Private.AccessPoints.AP_EDIT,
           ].includes(location.pathname as any) ||
-          location.pathname.includes(AppRoutes.Private.Inventory.PRODUCT_EDIT),
-        defaultOpen: location.pathname.includes("private/inventory"),
-        // hidden: !checkAccessByPolicies(
-        //   [
-        //     Policies.PRODUCT.ADMIN_ACCESS,
-        //     Policies.CATEGORY.ADMIN_ACCESS,
-        //     Policies.BRAND.ADMIN_ACCESS,
-        //     Policies.PRODUCT.VIEW_PRODUCTS,
-        //     Policies.CATEGORY.VIEW_CATEGORIES,
-        //     Policies.BRAND.VIEW_BRANDS,
-        //   ],
-        //   [
-        //     Policies.PRODUCT.VIEW_PRODUCTS,
-        //     Policies.CATEGORY.VIEW_CATEGORIES,
-        //     Policies.BRAND.VIEW_BRANDS,
-        //   ]
-        // ),
-        subItems: [
-          {
-            label: "Product list",
-            icon: <Dot name="dot" />,
-            isActive:
-              location.pathname.includes(
-                AppRoutes.Private.Inventory.PRODUCT_LIST
-              ) &&
-              !location.pathname.includes(
-                AppRoutes.Private.Inventory.PRODUCT_LIST_STOCK
-              ),
-            route: AppRoutes.Private.Inventory.PRODUCT_LIST,
-
-            // hidden: !checkAccessByPolicies(
-            //   [Policies.PRODUCT.ADMIN_ACCESS],
-            //   [Policies.PRODUCT.VIEW_PRODUCTS]
-            // ),
-          },
-          {
-            label: "Categories",
-            icon: <Dot name="dot" />,
-            isActive:
-              location.pathname === AppRoutes.Private.Inventory.CATEGORIES,
-            route: AppRoutes.Private.Inventory.CATEGORIES,
-            // hidden: !checkAccessByPolicies(
-            //   [Policies.CATEGORY.ADMIN_ACCESS],
-            //   [Policies.CATEGORY.VIEW_CATEGORIES]
-            // ),
-          },
-        ],
+          location.pathname.includes(AppRoutes.Private.AccessPoints.AP_EDIT),
+        defaultOpen: location.pathname.includes("private/access-points"),
+        route: AppRoutes.Private.AccessPoints.AP_LIST
+      },
+      {
+        label: "Monitor",
+        icon: <Monitor name="monitor" />,
+        isActive:
+          [AppRoutes.Private.Monitor.MONITOR].includes(
+            location.pathname as any
+          ) || location.pathname.includes(AppRoutes.Private.Monitor.MONITOR),
+        defaultOpen: location.pathname.includes("private/monitor"),
+        route: AppRoutes.Private.Monitor.MONITOR
       },
     ],
     [location.pathname]

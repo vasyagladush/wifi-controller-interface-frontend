@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { AppRoutes } from "../../constants/routes";
 import { useUserContext } from "../../context/UserContextProvider";
 // import { usePolicyCheck } from "../../modules/private/hooks/usePolicyCheck";
-import { FenaLogo, OrderGeneration2, SignOut } from "../icons";
+import { Logo, OrderGeneration2, SignOut } from "../icons";
 import {
   Avatar,
   AvatarSizeVariant,
@@ -35,7 +35,8 @@ const Wrapper = styled.header`
   padding: 25px;
 `;
 
-const StyledFenaLogo = styled(FenaLogo)`
+const StyledLogo = styled(Logo)`
+  width: 150px;
   cursor: pointer;
   z-index: 3;
   @media (max-width: 576px) {
@@ -97,7 +98,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
   };
 
   const handleLogOut = async () => {
-    console.log('LOG OUT TRIGGERED')
+    console.log("LOG OUT TRIGGERED");
     localStorage.removeItem("accessToken");
     Api.updateHeadersWithToken(null);
     clearUser();
@@ -109,7 +110,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
   };
 
   const goToProducts = () => {
-    navigate(AppRoutes.Private.Inventory.PRODUCT_LIST);
+    navigate(AppRoutes.Private.AccessPoints.AP_LIST);
   };
 
   const navigateToRoute =
@@ -119,7 +120,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
 
   return (
     <Wrapper>
-      <StyledFenaLogo onClick={goToProducts} />
+      <StyledLogo onClick={goToProducts} />
       <RightContainer>
         {landing ? (
           <SignUpButtons>
@@ -141,29 +142,19 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
                 true ? (
                   <BurgerMenuItem
                     icon={<OrderGeneration2 />}
-                    label="Inventory"
+                    label="Access points"
                     isActive={window.location.pathname.includes(
-                      "/private/inventory"
+                      "/private/access-points"
                     )}
                   >
                     <BurgerMenuItem
                       level={2}
-                      label="Products"
+                      label="Access points"
                       isActive={window.location.pathname.includes(
-                        AppRoutes.Private.Inventory.PRODUCT_LIST
+                        AppRoutes.Private.AccessPoints.AP_LIST
                       )}
                       onClick={navigateToRoute(
-                        AppRoutes.Private.Inventory.PRODUCT_LIST
-                      )}
-                    />
-                    <BurgerMenuItem
-                      level={2}
-                      label="Categories"
-                      isActive={window.location.pathname.includes(
-                        AppRoutes.Private.Inventory.CATEGORIES
-                      )}
-                      onClick={navigateToRoute(
-                        AppRoutes.Private.Inventory.CATEGORIES
+                        AppRoutes.Private.AccessPoints.AP_LIST
                       )}
                     />
                   </BurgerMenuItem>

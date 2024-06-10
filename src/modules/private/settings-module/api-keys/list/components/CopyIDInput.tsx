@@ -19,7 +19,7 @@ const Input = styled.input`
   font-weight: 500;
   font-size: 13px;
   height: 36px;
-  color: #2a3b89;
+  color: #556CB1;
   border-top: 1px solid #dbe3eb;
   border-bottom: 1px solid #dbe3eb;
   border-left: 1px solid #dbe3eb;
@@ -40,7 +40,7 @@ const SecretInput = styled.input`
   font-weight: 500;
   font-size: 13px;
   height: 36px;
-  color: #2a3b89;
+  color: #556CB1;
   border-top: 1px solid #dbe3eb;
   border-bottom: 1px solid #dbe3eb;
   border-left: 0;
@@ -61,7 +61,7 @@ const CopyButton = styled.button`
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  background-color: #2a3b89;
+  background-color: #556CB1;
   color: #ffffff;
   border-radius: 0 5px 5px 0;
   transition: 0.1s;
@@ -72,7 +72,7 @@ const CopyButton = styled.button`
   box-sizing: border-box;
 
   :hover {
-    background-color: #2a3b89;
+    background-color: #556CB1;
   }
 `;
 

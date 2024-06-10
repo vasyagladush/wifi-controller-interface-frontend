@@ -32,7 +32,7 @@ const DefaultInput = styled.input`
   font-size: 14px;
   font-weight: 400;
   font-family: "Ubuntu";
-  color: #2a3b89;
+  color: #556CB1;
 
   ::placeholder {
     color: #9898ad;

@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 const ItemActiveCss = css`
-  border-bottom: 2px solid #3B892A;
+  border-bottom: 2px solid #6CB155;
 `;
 
 const MenuItemText = styled(Typography)<{ active?: boolean }>`

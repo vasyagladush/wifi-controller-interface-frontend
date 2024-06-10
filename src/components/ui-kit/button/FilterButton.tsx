@@ -22,7 +22,7 @@ const Body = styled.button`
   justify-content: center;
   transition: 200ms;
   border: none;
-  background-color: #2a3b89;
+  background-color: #556CB1;
 
   &:hover {
     background-color: #19385e;

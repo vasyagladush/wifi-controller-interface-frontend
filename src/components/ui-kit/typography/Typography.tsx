@@ -152,7 +152,7 @@ export const Typography = styled.p<{
 }>`
   font-family: "Ubuntu", sans-serif;
   font-style: normal;
-  color: ${(props?: { color?: string }) => props?.color ?? "#2a3b89"};
+  color: ${(props?: { color?: string }) => props?.color ?? "#556CB1"};
   margin: 0;
   ${({ variant }) => (variant ? getVariant(variant) : "")}
   ${({ clickable }) => clickable && "cursor: pointer;"}

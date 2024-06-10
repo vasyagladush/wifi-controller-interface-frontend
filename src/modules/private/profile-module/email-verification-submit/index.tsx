@@ -97,7 +97,7 @@ export {};
 //       <ContainerBox>
 //         <Typography
 //           variant={TypographyVariant.HEADER2}
-//           style={{ color: "#2a3b89", textAlign: "center" }}
+//           style={{ color: "#556CB1", textAlign: "center" }}
 //         >
 //           {message}
 //         </Typography>

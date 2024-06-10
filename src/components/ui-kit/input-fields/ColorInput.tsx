@@ -9,7 +9,7 @@ const borderVariants = {
     border-color: #ef6355;
   `,
   success: css`
-    border-color: #3B892A;
+    border-color: #6CB155;
   `,
   default: css`
     border-color: #dbe3eb;
@@ -93,7 +93,7 @@ const ColorString = styled.input`
   width: 100%;
   height: 34px;
   border: none;
-  color: #2a3b89;
+  color: #556CB1;
   font-family: Ubuntu;
   font-size: 14px;
   font-style: normal;

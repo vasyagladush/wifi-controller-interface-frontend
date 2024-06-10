@@ -86,7 +86,7 @@ const Filename = styled.div`
   font-family: Ubuntu;
   font-size: 14px;
   font-weight: 500;
-  color: #2a3b89;
+  color: #556CB1;
   max-width: 100px;
   white-space: nowrap;
   overflow: hidden;

@@ -14,7 +14,7 @@ export interface ContentCardProps {
 const Wrapper = styled.div`
   background: #ffffff;
   border: 1px solid #eeeeee;
-  border-radius: 10px;
+  border-radius: 0px;
   padding: 2rem 3rem;
 `;
 

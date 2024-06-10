@@ -11,7 +11,7 @@ const borderVariants = {
     border-color: #ef6355;
   `,
   success: css`
-    border-color: #3B892A;
+    border-color: #6CB155;
   `,
   default: css`
     border-color: #dbe3eb;
@@ -84,7 +84,7 @@ const FieldLabel = styled.label`
   font-size: 12px;
   line-height: 22px;
   margin-bottom: 5px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 export const TextAreaComponent: FC<ITextAreaComponent> = ({

@@ -66,7 +66,7 @@ const ValueSelect = styled.span<{ disabled?: boolean }>`
   overflow: hidden;
   display: flex;
   align-items: center;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const DropDownListContainer = styled.div<{
@@ -124,7 +124,7 @@ const CategoryTitle = styled(Typography)`
   font-weight: 400;
   font-size: 13px;
   line-height: 15px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const InputSection = styled.div<{ fullWidth?: boolean; disabled?: boolean }>`
@@ -184,7 +184,7 @@ const SearchInput = styled.input`
   font-weight: 400;
   font-size: 13px;
   line-height: 20px;
-  color: #2a3b89;
+  color: #556CB1;
 
   border: 1px solid #dbe3eb;
   border-radius: 5px;

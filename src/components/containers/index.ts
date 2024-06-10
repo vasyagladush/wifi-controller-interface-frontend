@@ -10,7 +10,7 @@ export const DefaultContainer = styled.div`
   padding: 25px 17px 20px 20px;
   background: #ffffff;
   border: 1px solid #eeeeee;
-  border-radius: 10px;
+  border-radius: 0px;
 
   @media (max-width: 1211px) {
     width: calc(50% - 11px - 20px - 16px);
@@ -33,7 +33,7 @@ export const EnlargedContainer = styled.div`
   width: calc(68% - 30px * 2 - 27px);
   background: #ffffff;
   border: 1px solid #eeeeee;
-  border-radius: 10px;
+  border-radius: 0px;
 `;
 
 export const ReducedContainer = styled(EnlargedContainer)`
@@ -50,7 +50,7 @@ export const CategoriesWrapper = styled.ul`
 export const Li = styled.li`
   font-family: "Ubuntu", sans-serif;
   margin-left: 15px;
-  color: #2a3b89;
+  color: #556CB1;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;

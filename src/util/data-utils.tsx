@@ -9,9 +9,9 @@ import { Clock } from "../components/icons";
 const Row = styled.div<{ overdue?: boolean }>`
   display: flex;
   gap: 5px;
-  color: ${({ overdue }) => (overdue ? "#EF6355" : "#2a3b89")};
+  color: ${({ overdue }) => (overdue ? "#EF6355" : "#556CB1")};
   p {
-    color: ${({ overdue }) => (overdue ? "#EF6355" : "#2a3b89")};
+    color: ${({ overdue }) => (overdue ? "#EF6355" : "#556CB1")};
   }
 `;
 

@@ -54,7 +54,7 @@ const ValueSelect = styled.span`
   overflow: hidden;
   display: flex;
   align-items: center;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const DropDownListContainer = styled.div`
@@ -98,7 +98,7 @@ const CategoryTitle = styled(Typography)`
   font-weight: 400;
   font-size: 13px;
   line-height: 15px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const InputSection = styled.div<{ fullWidth?: boolean }>`

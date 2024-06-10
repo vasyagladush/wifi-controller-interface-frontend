@@ -24,7 +24,7 @@ const SearchInput = styled.input<{ bgColor?: string }>`
   line-height: 20px;
   width: 100%;
 
-  color: #2a3b89;
+  color: #556CB1;
   background: ${(props) => (props.bgColor ? `${props.bgColor}` : "#f4f5f9")};
   border: none;
   border-radius: 5px 0 0 5px;
@@ -56,7 +56,7 @@ const SearchButton = styled.button<{
   transition: 200ms;
   cursor: pointer;
   &:hover {
-    background-color: #2a3b89;
+    background-color: #556CB1;
     svg {
       fill: #ffffff;
     }
@@ -142,7 +142,7 @@ const CategoryTitle = styled(Typography)`
   font-weight: 400;
   font-size: 13px;
   line-height: 15px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const GreySpan = styled(CategoryTitle)`

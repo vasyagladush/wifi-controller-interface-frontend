@@ -44,7 +44,7 @@ const SuccessIcon = styled.div<{ failure?: boolean }>`
       ? "#EF6355"
       : `linear-gradient(
     47deg,
-    #3B892A 12.72%,
+    #6CB155 12.72%,
     #47ef90 85.89%,
     #3ce396 85.89%
   )`};

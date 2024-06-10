@@ -84,7 +84,7 @@ export const APIKeysTable: FC<APIKeysTableProps> = ({
                 place="top"
                 anchorId={row.id}
                 style={{
-                  backgroundColor: "#2a3b89",
+                  backgroundColor: "#556CB1",
                   zIndex: "99",
                   borderRadius: "24px",
                 }}

@@ -15,7 +15,7 @@ const StyledContainer = styled(ToastContainer)`
   }
 
   .Toastify__toast-theme--light {
-    color: #2a3b89;
+    color: #556CB1;
   }
 
   .Toastify__progress-bar--info {

@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { Spinner } from "..";
 
 const Primary = css`
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const Danger = css`

@@ -10,7 +10,7 @@ const borderVariants = {
     border-color: #ef6355;
   `,
   success: css`
-    border-color: #3B892A;
+    border-color: #6CB155;
   `,
   default: css`
     border-color: #dbe3eb;
@@ -26,7 +26,6 @@ const Wrapper = styled.div<{ disabled?: boolean }>`
 `;
 
 const Input = styled.input<{ currency?: boolean }>`
-  padding-left: ${(props) => props.currency && "12px"};
   width: 100%;
   height: 100%;
   border: none;
@@ -67,7 +66,7 @@ const WrapperTextField = styled.div<WrapperTextFieldProps>`
   justify-content: space-between;
   align-items: center;
   border: 1px solid;
-  border-radius: 5px;
+  border-radius: 0px;
   height: 36px;
   padding: 2px 12px;
   box-sizing: border-box;
@@ -103,24 +102,6 @@ const StyledInputMask = styled(InputMask)<Props>`
   }
   ::placeholder {
     color: #9898ad;
-  }
-`;
-
-const CurrencyInputWrapper = styled.div<WrapperTextFieldProps>`
-  width: 100%;
-  display: flex;
-  height: 36px;
-  background: #ffffff;
-  border: 1px solid #c2cedb;
-  box-sizing: border-box;
-  border-radius: 5px;
-  overflow: hidden;
-  ${({ variant }) => borderVariants[variant ?? TextInputErrorVariant.DEFAULT]};
-  &:focus-within {
-    ${({ variant }) =>
-      variant === TextInputErrorVariant.ERROR
-        ? borderVariants[variant]
-        : borderVariants[TextInputErrorVariant.ACTIVE]}
   }
 `;
 
@@ -166,9 +147,9 @@ const DatepickerWrapper = styled.div`
   align-items: center;
   background-color: #f4f5f9;
   border-left: 1px solid #dbe3eb;
-  border-radius: 0 4px 4px 0;
   cursor: pointer;
 `;
+// border-radius: 0 4px 4px 0;
 
 export const TextInput: React.FunctionComponent<ITextInputProps> = ({
   rightIcon,
@@ -206,37 +187,31 @@ export const TextInput: React.FunctionComponent<ITextInputProps> = ({
           </LabelWrapper>
         </FieldLabel>
       )}
-      {currency ? (
-        <CurrencyInputWrapper variant={variant} disabled={disabled}>
-          <WrapperCurrency>£</WrapperCurrency>
-          <Input currency={currency} disabled={disabled} {...rest} />
-        </CurrencyInputWrapper>
-      ) : (
-        <WrapperTextField
-          className="wrapperTextField"
-          variant={variant}
-          disabled={disabled}
-          datePicker={datePicker}
-        >
-          {leftIcon != null && <IconWrapper>{leftIcon()}</IconWrapper>}
-          {mask ? (
-            <StyledInputMask
-              mask={mask}
-              maskChar={null}
-              disabled={disabled}
-              {...rest}
-            />
-          ) : (
-            <Input disabled={disabled} {...rest} ref={ref} />
-          )}
-          {rightIcon != null && <IconWrapper>{rightIcon()}</IconWrapper>}
-          {datePicker && (
-            <DatepickerWrapper>
-              <CalendarIcon />
-            </DatepickerWrapper>
-          )}
-        </WrapperTextField>
-      )}
+      <WrapperTextField
+        className="wrapperTextField"
+        variant={variant}
+        disabled={disabled}
+        datePicker={datePicker}
+      >
+        {leftIcon != null && <IconWrapper>{leftIcon()}</IconWrapper>}
+        {mask ? (
+          <StyledInputMask
+            mask={mask}
+            maskChar={null}
+            disabled={disabled}
+            {...rest}
+          />
+        ) : (
+          <Input disabled={disabled} {...rest} ref={ref} />
+        )}
+        {rightIcon != null && <IconWrapper>{rightIcon()}</IconWrapper>}
+        {datePicker && (
+          <DatepickerWrapper>
+            <CalendarIcon />
+          </DatepickerWrapper>
+        )}
+      </WrapperTextField>
+
       {error && !disableErrorMessage && <InputError>{error}</InputError>}
     </Wrapper>
   );

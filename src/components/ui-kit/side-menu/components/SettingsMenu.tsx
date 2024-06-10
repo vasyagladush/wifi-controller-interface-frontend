@@ -54,7 +54,7 @@ export const SettingsMenu: React.FunctionComponent<SettingsMenuProps> = ({
   //   setSearchString(searchString);
   // };
   const onBackFromSettings = () => {
-    navigate(AppRoutes.Private.Inventory.PRODUCT_LIST);
+    navigate(AppRoutes.Private.AccessPoints.AP_LIST);
     // navigate(-1);
   };
   return (
@@ -90,7 +90,7 @@ export const SettingsMenu: React.FunctionComponent<SettingsMenuProps> = ({
             button: ({ level, active }) => {
               if (level === 0) {
                 return {
-                  color: active ? "#3B892A" : "#495B6C",
+                  color: active ? "#6CB155" : "#495B6C",
                   backgroundColor: "#fff",
                   borderRadius: "5px",
                   paddingLeft: 0,
@@ -99,13 +99,13 @@ export const SettingsMenu: React.FunctionComponent<SettingsMenuProps> = ({
                   fontSize: "14px",
                   fontWeight: "500",
                   "&:hover": {
-                    color: active ? "#3B892A" : "#2a3b89",
+                    color: active ? "#6CB155" : "#556CB1",
                     backgroundColor: "#fff",
                   },
                 };
               } else if (level === 1) {
                 return {
-                  color: active ? "#3B892A" : "#495B6C",
+                  color: active ? "#6CB155" : "#495B6C",
                   backgroundColor: "#fff",
                   borderRadius: "5px",
                   paddingLeft: "13px",
@@ -121,7 +121,7 @@ export const SettingsMenu: React.FunctionComponent<SettingsMenuProps> = ({
                 };
               } else if (level === 2) {
                 return {
-                  color: active ? "#3B892A" : "#495B6C",
+                  color: active ? "#6CB155" : "#495B6C",
                   backgroundColor: "#fff",
                   borderRadius: "5px",
                   paddingLeft: "13px",
@@ -141,7 +141,7 @@ export const SettingsMenu: React.FunctionComponent<SettingsMenuProps> = ({
               if (level === 0) {
                 return {
                   margin: "0 10px 0 0",
-                  color: active ? "#3B892A" : "#ADB5BD",
+                  color: active ? "#6CB155" : "#ADB5BD",
                   width: "initial",
                   minWidth: "initial",
                 };
@@ -150,20 +150,20 @@ export const SettingsMenu: React.FunctionComponent<SettingsMenuProps> = ({
                   margin: "0 11px 0 11px",
                   width: "initial",
                   minWidth: "initial",
-                  color: active ? "#3B892A" : "#ADB5BD",
+                  color: active ? "#6CB155" : "#ADB5BD",
                 };
               } else if (level === 2) {
                 return {
                   margin: "0 11px 0 38px",
                   width: "initial",
                   minWidth: "initial",
-                  color: active ? "#3B892A" : "#ADB5BD",
+                  color: active ? "#6CB155" : "#ADB5BD",
                 };
               }
             },
             SubMenuExpandIcon: ({ active }) => {
               return {
-                color: active ? "#3B892A" : "#495B6C",
+                color: active ? "#6CB155" : "#495B6C",
                 marginBottom: "3px",
               };
             },

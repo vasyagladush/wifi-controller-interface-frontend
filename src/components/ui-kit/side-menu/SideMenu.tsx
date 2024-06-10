@@ -23,7 +23,6 @@ export const SideMenu: React.FunctionComponent<SideMenuProps> = ({
   menuItems,
   settingsMenuItems,
   isHidden,
-  hasPaymentsOnlySubscription,
 }) => {
   const navigate = useNavigate();
 
@@ -42,7 +41,6 @@ export const SideMenu: React.FunctionComponent<SideMenuProps> = ({
         <SettingsMenu
           navigateToRoute={navigateToRoute}
           menuItems={settingsMenuItems}
-          hasPaymentsOnlySubscription={hasPaymentsOnlySubscription}
         />
       )}
     </Wrapper>

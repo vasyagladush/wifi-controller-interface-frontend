@@ -82,7 +82,7 @@ const SignInModule: React.FunctionComponent = () => {
     const res = await checkSignInStatus();
     console.log('CHECK SIGN IN: ', res);
     if (res.user) {
-      navigate(AppRoutes.Private.Inventory.PRODUCT_LIST);
+      navigate(AppRoutes.Private.AccessPoints.AP_LIST);
     }
   };
   useEffect(() => {
@@ -98,7 +98,7 @@ const SignInModule: React.FunctionComponent = () => {
     try {
       const res = await signIn(username, password);
       console.log('SIGN IN RES: ', res);
-      if (res.user) navigate(AppRoutes.Private.Inventory.PRODUCT_LIST);
+      if (res.user) navigate(AppRoutes.Private.AccessPoints.AP_LIST);
     } catch (error: any) {
       console.error(error);
       setErrorMessage(error);
@@ -116,13 +116,6 @@ const SignInModule: React.FunctionComponent = () => {
         )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <SignInForm control={control} />
-
-          {/* <ForgotPasswordButton
-            onClick={onPasswordForgot}
-            variant={TypographyVariant.BODY6}
-          >
-            Forgot password?
-          </ForgotPasswordButton> */}
           <StyledButton
             loading={loading}
             disabled={Object.keys(errors).length !== 0}

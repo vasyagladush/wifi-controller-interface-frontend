@@ -129,7 +129,7 @@ export const EposMenu: React.FunctionComponent<EposMenuProps> = ({
             button: ({ level, active, disabled }) => {
               if (level === 0) {
                 return {
-                  color: active ? "#2a3b89" : "#495B6C",
+                  color: active ? "#556CB1" : "#495B6C",
                   fontSize: "14px",
                   fontWeight: "500",
                   backgroundColor: active
@@ -152,7 +152,7 @@ export const EposMenu: React.FunctionComponent<EposMenuProps> = ({
                 };
               } else if (level === 1) {
                 return {
-                  color: active ? "#3B892A" : "#495B6C",
+                  color: active ? "#6CB155" : "#495B6C",
                   backgroundColor: "#fff",
                   borderRadius: "5px",
                   paddingLeft: "13px",
@@ -168,7 +168,7 @@ export const EposMenu: React.FunctionComponent<EposMenuProps> = ({
                 };
               } else if (level === 2) {
                 return {
-                  color: active ? "#3B892A" : "#495B6C",
+                  color: active ? "#6CB155" : "#495B6C",
                   backgroundColor: "#fff",
                   borderRadius: "5px",
                   paddingLeft: "13px",
@@ -188,7 +188,7 @@ export const EposMenu: React.FunctionComponent<EposMenuProps> = ({
               if (level === 0) {
                 return {
                   margin: collapsed ? "0 6px 0 6px" : "0 10px 0 0",
-                  color: active ? "#3B892A" : "#ADB5BD",
+                  color: active ? "#6CB155" : "#ADB5BD",
                   width: "initial",
                   minWidth: "initial",
                 };
@@ -197,14 +197,14 @@ export const EposMenu: React.FunctionComponent<EposMenuProps> = ({
                   margin: "0 11px 0 11px",
                   width: "initial",
                   minWidth: "initial",
-                  color: active ? "#3B892A" : "#ADB5BD",
+                  color: active ? "#6CB155" : "#ADB5BD",
                 };
               } else if (level === 2) {
                 return {
                   margin: "0 11px 0 27px",
                   width: "initial",
                   minWidth: "initial",
-                  color: active ? "#3B892A" : "#ADB5BD",
+                  color: active ? "#6CB155" : "#ADB5BD",
                 };
               }
             },
@@ -221,7 +221,7 @@ export const EposMenu: React.FunctionComponent<EposMenuProps> = ({
             },
             SubMenuExpandIcon: ({ active }) => {
               return {
-                color: active ? "#3B892A" : collapsed ? "#adb5bd" : "#495B6C",
+                color: active ? "#6CB155" : collapsed ? "#adb5bd" : "#495B6C",
                 marginBottom: "3px",
                 left: collapsed ? "34px" : "initial",
                 top: collapsed ? "47%" : "initial",

@@ -3,17 +3,18 @@ import { Route, Routes, useSearchParams } from "react-router-dom";
 import { SuspenseLoader } from "../../components/suspense-loader/SuspenseLoader";
 import { PrivateLayout } from "../../components/private-layout/PrivateLayout";
 // import { CreatedByContextProvider } from "./context/CreatedByContextProvider";
-import { CategoriesContextProvider } from "./inventory-module/context/CategoriesContextProvider";
+import { CategoriesContextProvider } from "./access-points-module/context/CategoriesContextProvider";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import { LoadingBlock } from "../../components/loading-block/LoadingBlock";
 import { AppRoutes } from "../../constants/routes";
 import { useNavigateParams } from "../../hooks/useNavigateParams";
+import DashboardModule from "./monitor-module";
 // In this file we will determine which modules the user has access to,
 // where he's allowed to navigate and which modules should be rendered for him.
 // Also here we will instantiate the main layout
 
 // This is an example of using lazy loading for modules
-const InventoryModule = lazy(async () => await import("./inventory-module"));
+const InventoryModule = lazy(async () => await import("./access-points-module"));
 const SettingsModule = lazy(async () => await import("./settings-module"));
 const ProfileModule = lazy(async () => await import("./profile-module"));
 
@@ -51,10 +52,18 @@ const PrivateModule = () => {
         <Routes>
           <Route path="/" element={<PrivateLayout />}>
             <Route
-              path="inventory/*"
+              path="access-points/*"
               element={
                 <SuspenseLoader>
                   <InventoryModule />
+                </SuspenseLoader>
+              }
+            />
+            <Route
+              path="monitor/*"
+              element={
+                <SuspenseLoader>
+                  <DashboardModule />
                 </SuspenseLoader>
               }
             />

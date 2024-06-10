@@ -1,5 +1,4 @@
 // import { usePoliciesContext } from "../../../context/PoliciesContextProvider";
-// import { Policies } from "@fena/toolkit-types";
 
 // export const usePolicyCheck = () => {
 //   const { policies } = usePoliciesContext();

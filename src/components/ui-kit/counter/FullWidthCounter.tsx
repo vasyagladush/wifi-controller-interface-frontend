@@ -39,10 +39,10 @@ const Button = styled.button<{ disabled?: boolean; right?: boolean }>`
   height: 36px;
   cursor: pointer;
   &:hover {
-    border: 1px solid #3B892A;
+    border: 1px solid #6CB155;
     box-shadow: 0 0 0 2px rgba(44, 208, 158, 0.2);
     svg {
-      color: #2a3b89;
+      color: #556CB1;
     }
   }
   ${({ disabled }) =>

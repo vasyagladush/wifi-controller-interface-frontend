@@ -12,15 +12,15 @@ const Body = styled.div<{ variant: SmallButtonVariant }>`
   justify-content: center;
   align-items: center;
   background-color: ${(props) =>
-    props.variant === SmallButtonVariant.CONTAINED ? "#3B892A" : "transparent"};
-  border: 1px solid #3B892A;
+    props.variant === SmallButtonVariant.CONTAINED ? "#6CB155" : "transparent"};
+  border: 1px solid #6CB155;
   border-radius: 50%;
   width: 16px;
   height: 16px;
   cursor: pointer;
   svg {
     color: ${(props) =>
-      props.variant === SmallButtonVariant.CONTAINED ? "#fff" : "#3B892A"};
+      props.variant === SmallButtonVariant.CONTAINED ? "#fff" : "#6CB155"};
   }
 `;
 

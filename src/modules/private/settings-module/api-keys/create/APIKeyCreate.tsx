@@ -119,7 +119,7 @@ export const APIKeyCreate: FC = () => {
           <ArrowLeft style={{ marginTop: 4, marginRight: 10 }} />
           <Typography
             variant={TypographyVariant.HEADER1}
-            style={{ color: "#2a3b89" }}
+            style={{ color: "#556CB1" }}
           >
             Generate API Keys
           </Typography>
@@ -129,7 +129,7 @@ export const APIKeyCreate: FC = () => {
         <ViewRow>
           <Typography
             variant={TypographyVariant.HEADER2}
-            style={{ color: "#2a3b89", flex: 4 }}
+            style={{ color: "#556CB1", flex: 4 }}
           >
             Generate API keys
           </Typography>

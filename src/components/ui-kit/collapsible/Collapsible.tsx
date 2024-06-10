@@ -17,7 +17,7 @@ const Header = styled.div`
 `;
 
 const ArrowIcon = styled(LeftArrow)<{ isExpanded?: boolean }>`
-  fill: #2a3b89;
+  fill: #556CB1;
   transform: rotate(-180deg);
   ${({ isExpanded }) => isExpanded && "transform: rotate(-90deg);"}
 `;

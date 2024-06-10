@@ -15,7 +15,7 @@ const CustomInput = styled.input`
   box-sizing: border-box;
   font-size: 14px;
   font-weight: 250;
-  color: #2a3b89;
+  color: #556CB1;
   margin-bottom: 10px;
 `;
 const TagBox = styled.div`
@@ -46,7 +46,7 @@ export const TagInput: FC<ITagInput> = () => {
     <>
       <Typography
         variant={TypographyVariant.HEADER3}
-        style={{ color: "#2a3b89", marginBottom: 10, marginTop: 10 }}
+        style={{ color: "#556CB1", marginBottom: 10, marginTop: 10 }}
       >
         Tags
       </Typography>

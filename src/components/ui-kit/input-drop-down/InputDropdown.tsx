@@ -79,7 +79,7 @@ const ValueSelect = styled.span<{ isPlaceholder?: boolean }>`
   overflow: hidden;
   display: flex;
   align-items: center;
-  color: ${({ isPlaceholder }) => (isPlaceholder ? "#9898AD" : "#2a3b89")};
+  color: ${({ isPlaceholder }) => (isPlaceholder ? "#9898AD" : "#556CB1")};
 `;
 
 const DropDownListContainer = styled.div<{ fullWidth?: boolean }>`
@@ -144,7 +144,7 @@ const CategoryTitle = styled(Typography)<{ hasDeepItem: boolean }>`
   font-weight: ${(props) => (props.hasDeepItem ? 500 : 400)};
   font-size: 13px;
   line-height: 15px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const InputSection = styled.div<{ fullWidth?: boolean }>`
@@ -203,7 +203,7 @@ const SearchInput = styled.input`
   font-weight: 400;
   font-size: 13px;
   line-height: 20px;
-  color: #2a3b89;
+  color: #556CB1;
 
   border: 1px solid #dbe3eb;
   border-radius: 5px;
@@ -233,7 +233,7 @@ const SubMenuItem = styled.div`
   font-weight: 400;
   line-height: 24px;
   text-transform: capitalize;
-  color: #2a3b89;
+  color: #556CB1;
   display: flex;
   align-items: center;
   justify-content: space-between;

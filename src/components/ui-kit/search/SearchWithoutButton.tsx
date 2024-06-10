@@ -29,7 +29,7 @@ const SearchInput = styled.input`
   font-size: 13px;
   line-height: 20px;
 
-  color: #2a3b89;
+  color: #556CB1;
   background: transparent;
   border: none;
   border-radius: 0 5px 5px 0;
@@ -97,7 +97,7 @@ const CategoryTitle = styled(Typography)`
   font-weight: 400;
   font-size: 13px;
   line-height: 15px;
-  color: #2a3b89;
+  color: #556CB1;
 `;
 
 const GreySpan = styled(CategoryTitle)`

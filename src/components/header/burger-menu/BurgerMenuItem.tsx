@@ -26,7 +26,7 @@ const BmItemIconAndLabel = styled.div<{
   display: flex;
   align-items: center;
   ${({ hasChildren }) => hasChildren && "padding: 5px 0;"}
-  ${({ isActive }) => isActive && "svg {color:#3B892A;} p {color:#3B892A;}"}
+  ${({ isActive }) => isActive && "svg {color:#6CB155;} p {color:#6CB155;}"}
 `;
 
 const BmIconWrapper = styled.div`

@@ -12,7 +12,7 @@ const SvgBurgerCrossIcon = (
     xmlns="http://www.w3.org/2000/svg"
     ref={ref}
   >
-    <circle cx={16} cy={16} r={16} fill="#3B892A" />
+    <circle cx={16} cy={16} r={16} fill="#6CB155" />
     <path
       fillRule="evenodd"
       clipRule="evenodd"

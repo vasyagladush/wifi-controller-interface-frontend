@@ -92,7 +92,7 @@ const OnlineDot = styled.div<{
       : "11px"};
   border: 2px solid #fff;
   border-radius: 50%;
-  background-color: #3B892A;
+  background-color: #6CB155;
   position: absolute;
   right: ${(props) => (props.size === AvatarSizeVariant.LARGE ? "12px" : "0")};
   bottom: 0;

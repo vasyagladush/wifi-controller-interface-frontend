@@ -51,7 +51,7 @@ const PageButton = styled.button<{ active?: boolean }>`
   cursor: pointer;
   min-width: 23px;
   height: 23px;
-  color: ${({ active }) => (active ? "#2a3b89" : "#8181A5")};
+  color: ${({ active }) => (active ? "#556CB1" : "#8181A5")};
   background: ${({ active }) => (active ? "#DBE3EB" : "none")};
   border-radius: 3px;
 
@@ -82,7 +82,7 @@ export const PaginationButton = styled.button<{ disabled?: boolean }>`
   font-size: 13px;
   line-height: 26px;
 
-  color: ${({ disabled }) => (disabled ? "#8181A5" : "#2a3b89")};
+  color: ${({ disabled }) => (disabled ? "#8181A5" : "#556CB1")};
   padding: 3px 17px;
   cursor: pointer;
 

@@ -7,7 +7,7 @@ import { Typography } from "../typography/Typography";
 import { TypographyVariant } from "../typography/Typography.interface";
 
 const CheckedStyle = css`
-  background: #3B892A;
+  background: #6CB155;
   &:hover {
     box-shadow: 0 0 0 2px rgba(44, 208, 158, 0.2);
   }
@@ -17,7 +17,7 @@ const UncheckedStyle = css`
   background: #ffffff;
   border: 1px solid #dbe3eb;
   &:hover {
-    border: 1px solid #3B892A;
+    border: 1px solid #6CB155;
     box-shadow: 0 0 0 2px rgba(44, 208, 158, 0.2);
   }
 `;

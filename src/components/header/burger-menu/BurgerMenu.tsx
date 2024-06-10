@@ -19,7 +19,7 @@ const BmMenuStyles = {
     right: `16px`,
     top: `22px`,
     borderRadius: "50%",
-    backgroundColor: "#3B892A",
+    backgroundColor: "#6CB155",
   },
   bmBurgerBars: {
     width: `14px`,
@@ -36,7 +36,7 @@ const BmMenuStyles = {
     width: `32px`,
   },
   bmCross: {
-    background: `#3B892A`,
+    background: `#6CB155`,
     borderRadius: "50%",
   },
   bmMenuWrap: {
