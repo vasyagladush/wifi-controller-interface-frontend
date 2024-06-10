@@ -1,0 +1,19 @@
+import * as React from "react";
+import { SVGProps, Ref, forwardRef } from "react";
+const SvgCircleOne = (
+  props: SVGProps<SVGSVGElement>,
+  ref: Ref<SVGSVGElement>
+) => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 22 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="11" cy="11" r="10.5" fill="white" stroke="#ADB5BD" />
+    <path d="M9.104 6.9V8.031H11.158V16H12.445V6.9H9.104Z" fill="black" />
+  </svg>
+);
+const ForwardRef = forwardRef(SvgCircleOne);
+export default ForwardRef;

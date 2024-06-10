@@ -1,0 +1,20 @@
+<svg width="105" height="102" viewBox="0 0 105 102" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.432617" width="76.9876" height="93.443" rx="5" fill="url(#paint0_linear_11301_17722)"/>
+<path d="M0.432617 5C0.432617 2.23858 2.67119 0 5.43262 0H72.4202C75.1816 0 77.4202 2.23858 77.4202 5V9.99076H0.432617V5Z" fill="#C2CEDB"/>
+<rect x="8.0769" y="17.63" width="61.7076" height="17.6307" rx="3" fill="white"/>
+<rect x="8.0769" y="38.7871" width="60.5322" height="47.603" rx="3" fill="white"/>
+<line x1="25.0303" y1="17.63" x2="25.0303" y2="35.2607" stroke="#DBE3EB" stroke-opacity="0.7"/>
+<line x1="69.7783" y1="26.9484" x2="24.5261" y2="26.9484" stroke="#DBE3EB" stroke-opacity="0.67"/>
+<line x1="53.3271" y1="49.8661" x2="13.9518" y2="49.8661" stroke="#DBE3EB" stroke-opacity="0.67"/>
+<line x1="53.3271" y1="62.7937" x2="13.9518" y2="62.7937" stroke="#DBE3EB" stroke-opacity="0.67"/>
+<line x1="61.553" y1="75.7256" x2="13.95" y2="75.7256" stroke="#DBE3EB" stroke-opacity="0.67"/>
+<ellipse cx="65.8715" cy="53.0973" rx="18.2184" ry="18.2184" transform="rotate(-30 65.8715 53.0973)" fill="white" stroke="#859AAF" stroke-width="5"/>
+<line x1="77.3043" y1="68.8922" x2="81.1243" y2="75.5086" stroke="#6C6C8A" stroke-width="4"/>
+<path d="M75.0786 74.9218L82.204 70.8079L91.3132 86.5855C92.4492 88.5531 91.7751 91.0691 89.8074 92.2051C87.8398 93.3411 85.3238 92.667 84.1878 90.6994L75.0786 74.9218Z" fill="#9DB0C5"/>
+<defs>
+<linearGradient id="paint0_linear_11301_17722" x1="54.4489" y1="97.4141" x2="32.7276" y2="0.898081" gradientUnits="userSpaceOnUse">
+<stop offset="0.0187499" stop-color="#DBE3EB"/>
+<stop offset="1" stop-color="#ECEFF2"/>
+</linearGradient>
+</defs>
+</svg>
