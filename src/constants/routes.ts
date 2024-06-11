@@ -13,6 +13,9 @@ export namespace AppRoutes {
     export enum Monitor {
       MONITOR = "/private/monitor",
     }
+    export enum Console {
+      CONSOLE = "/private/console",
+    }
     export enum Profile {
       PROFILE_SETTINGS = "/private/profile/settings",
     }

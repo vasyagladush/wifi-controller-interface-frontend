@@ -32,7 +32,7 @@ const FlexLine = styled.div`
   margin-bottom: 20px;
 `;
 
-const DashboardModule = () => {
+const MonitorModule = () => {
   const [dateFilter, setDateFilter] = useState<FilterOption>({
     label: "Last month",
     value: "30",
@@ -75,4 +75,4 @@ const DashboardModule = () => {
   );
 };
 
-export default DashboardModule;
+export default MonitorModule;

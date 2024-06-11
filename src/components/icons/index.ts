@@ -57,6 +57,7 @@ export { default as CodeBrackets } from "./CodeBrackets";
 export { default as Coin } from "./Coin";
 export { default as Colors } from "./Colors";
 export { default as Comments } from "./Comments";
+export { default as Console } from "./Console";
 export { default as Copy } from "./Copy";
 export { default as CreditCard } from "./CreditCard";
 export { default as CrossGrey } from "./CrossGrey";

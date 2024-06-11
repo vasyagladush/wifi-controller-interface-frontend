@@ -4,7 +4,14 @@ import styled from "styled-components";
 import { AppRoutes } from "../../constants/routes";
 import { useUserContext } from "../../context/UserContextProvider";
 // import { usePolicyCheck } from "../../modules/private/hooks/usePolicyCheck";
-import { AccessPoint, Logo, Monitor, OrderGeneration2, SignOut } from "../icons";
+import {
+  AccessPoint,
+  Console,
+  Logo,
+  Monitor,
+  OrderGeneration2,
+  SignOut,
+} from "../icons";
 import {
   Avatar,
   AvatarSizeVariant,
@@ -159,6 +166,16 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
                       )}
                       onClick={navigateToRoute(
                         AppRoutes.Private.Monitor.MONITOR
+                      )}
+                    />
+                    <BurgerMenuItem
+                      icon={<Console />}
+                      label="Console"
+                      isActive={window.location.pathname.includes(
+                        "/private/console"
+                      )}
+                      onClick={navigateToRoute(
+                        AppRoutes.Private.Console.CONSOLE
                       )}
                     />
                   </>

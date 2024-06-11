@@ -6,7 +6,13 @@ import { AppRoutes } from "../../constants/routes";
 import { useModalManager } from "../../context/ModalManager";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import Header from "../header";
-import { AccessPoint, Dot, MenuItemShoppingBag, Monitor } from "../icons";
+import {
+  AccessPoint,
+  Console,
+  Dot,
+  MenuItemShoppingBag,
+  Monitor,
+} from "../icons";
 import { LoadingBlock } from "../loading-block/LoadingBlock";
 import { SideMenu } from "../ui-kit";
 import { useUserContext } from "../../context/UserContextProvider";
@@ -65,7 +71,7 @@ export const PrivateLayout = () => {
           ].includes(location.pathname as any) ||
           location.pathname.includes(AppRoutes.Private.AccessPoints.AP_EDIT),
         defaultOpen: location.pathname.includes("private/access-points"),
-        route: AppRoutes.Private.AccessPoints.AP_LIST
+        route: AppRoutes.Private.AccessPoints.AP_LIST,
       },
       {
         label: "Monitor",
@@ -75,7 +81,17 @@ export const PrivateLayout = () => {
             location.pathname as any
           ) || location.pathname.includes(AppRoutes.Private.Monitor.MONITOR),
         defaultOpen: location.pathname.includes("private/monitor"),
-        route: AppRoutes.Private.Monitor.MONITOR
+        route: AppRoutes.Private.Monitor.MONITOR,
+      },
+      {
+        label: "Console",
+        icon: <Console name="console" />,
+        isActive:
+          [AppRoutes.Private.Console.CONSOLE].includes(
+            location.pathname as any
+          ) || location.pathname.includes(AppRoutes.Private.Console.CONSOLE),
+        defaultOpen: location.pathname.includes("private/console"),
+        route: AppRoutes.Private.Console.CONSOLE,
       },
     ],
     [location.pathname]
