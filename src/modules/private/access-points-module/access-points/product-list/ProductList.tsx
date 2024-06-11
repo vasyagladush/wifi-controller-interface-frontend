@@ -173,7 +173,7 @@ export const ProductsList = () => {
                 navigate(AppRoutes.Private.AccessPoints.AP_CREATE);
               }}
             >
-              Add access point
+              Add AP
             </Button>
           )}
         </TopRowContainer>

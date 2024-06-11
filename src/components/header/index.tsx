@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { AppRoutes } from "../../constants/routes";
 import { useUserContext } from "../../context/UserContextProvider";
 // import { usePolicyCheck } from "../../modules/private/hooks/usePolicyCheck";
-import { Logo, OrderGeneration2, SignOut } from "../icons";
+import { AccessPoint, Logo, Monitor, OrderGeneration2, SignOut } from "../icons";
 import {
   Avatar,
   AvatarSizeVariant,
@@ -140,24 +140,28 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
                 //   [Policies.ORDER.CREATE_ORDERS]
                 // )
                 true ? (
-                  <BurgerMenuItem
-                    icon={<OrderGeneration2 />}
-                    label="Access points"
-                    isActive={window.location.pathname.includes(
-                      "/private/access-points"
-                    )}
-                  >
+                  <>
                     <BurgerMenuItem
-                      level={2}
+                      icon={<AccessPoint />}
                       label="Access points"
                       isActive={window.location.pathname.includes(
-                        AppRoutes.Private.AccessPoints.AP_LIST
+                        "/private/access-points"
                       )}
                       onClick={navigateToRoute(
                         AppRoutes.Private.AccessPoints.AP_LIST
                       )}
                     />
-                  </BurgerMenuItem>
+                    <BurgerMenuItem
+                      icon={<Monitor />}
+                      label="Monitor"
+                      isActive={window.location.pathname.includes(
+                        "/private/monitor"
+                      )}
+                      onClick={navigateToRoute(
+                        AppRoutes.Private.Monitor.MONITOR
+                      )}
+                    />
+                  </>
                 ) : (
                   <></>
                 )
