@@ -42,7 +42,7 @@ import OptionsControl from "./components/OptionsControl";
 import { AppRoutes } from "../../../../../constants/routes";
 import { useSetDefaultValues } from "./hooks/useSetDefaultValues";
 import { useCheckModified } from "./hooks/useCheckModified";
-import { ProductsFilters } from "../product-list/hooks/useProductsList";
+import { AccessPointsFilters } from "../access-points-list/hooks/useAccessPointsList";
 // import { useBrandsContext } from "../../context/BrandsContextProvider";
 import ProductSyncSettings from "./components/ProductSyncSettings";
 
@@ -78,16 +78,16 @@ const RightSide = styled.div`
   flex: 2.5;
 `;
 
-export const AddNewProduct: React.FunctionComponent<{ editing?: boolean }> = ({
-  editing,
-}) => {
+export const AddNewAccessPoint: React.FunctionComponent<{
+  editing?: boolean;
+}> = ({ editing }) => {
   const navigate = useNavigate();
   const { showDialog } = useDialogManager();
   // const { checkAccessByPolicies } = usePolicyCheck();
   const { id: productId } = useParams();
   const { state } = useLocation();
   const variantId = state?.variantId;
-  const incomingVariantFilters: Partial<ProductsFilters> = state?.filters;
+  const incomingVariantFilters: Partial<AccessPointsFilters> = state?.filters;
 
   const { createNewProduct, loading } = useCreateNewProduct();
   const { updateProductWithVariant, loading: updateLoading } =
@@ -96,21 +96,11 @@ export const AddNewProduct: React.FunctionComponent<{ editing?: boolean }> = ({
   const { productInfo, refreshProductInfo } = useGetProduct(productId);
 
   const [variantsFilters, setVariantsFilters] = useState<
-    Partial<ProductsFilters>
+    Partial<AccessPointsFilters>
   >(
-    incomingVariantFilters?.priceFrom ??
-      incomingVariantFilters?.priceTo ??
-      incomingVariantFilters?.soldFrom ??
-      incomingVariantFilters?.soldTo ??
-      incomingVariantFilters?.qtyFrom ??
-      incomingVariantFilters?.qtyTo
+    incomingVariantFilters?.name
       ? {
-          priceFrom: incomingVariantFilters?.priceFrom,
-          priceTo: incomingVariantFilters?.priceTo,
-          soldFrom: incomingVariantFilters?.soldFrom,
-          soldTo: incomingVariantFilters?.soldTo,
-          qtyFrom: incomingVariantFilters?.qtyFrom,
-          qtyTo: incomingVariantFilters?.qtyTo,
+          name: incomingVariantFilters.name,
         }
       : {}
   );
@@ -445,10 +435,7 @@ export const AddNewProduct: React.FunctionComponent<{ editing?: boolean }> = ({
             </ImagesBox>
           )}
 
-          {(!productId && !editing) ||
-          (true &&
-            productId &&
-            editing) ? (
+          {(!productId && !editing) || (true && productId && editing) ? (
             <Pricing
               isOptionsEditMode={isOptionsEditingMode}
               control={control}
@@ -457,10 +444,7 @@ export const AddNewProduct: React.FunctionComponent<{ editing?: boolean }> = ({
           ) : null}
           <InventoryNLocation
             editingWithPoliciesAvailable={
-              (!productId && !editing) ||
-              (true &&
-                !!productId &&
-                editing)
+              (!productId && !editing) || (true && !!productId && editing)
             }
             control={control}
             isOptionsEditMode={isOptionsEditingMode}

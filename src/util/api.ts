@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { AppRoutes } from "../constants/routes";
 import { useNavigateParams } from "../hooks/useNavigateParams";
 import { UserApiType, CategoryApiType, Product } from "./types";
+import { stringify } from "qs";
+import { components } from "./backend-api-types";
 
 const apiUrl = process.env.REACT_APP_PUBLIC_API_URL as string;
 
@@ -55,7 +57,7 @@ class Api {
       headers: this.defaultHeaders,
     });
     const creds = await result.json();
-    console.log('ACQUIRED TOKEN: ', creds.accessToken);
+    console.log("ACQUIRED TOKEN: ", creds.accessToken);
     localStorage.setItem("accessToken", creds.accessToken);
     this.updateHeadersWithToken(creds.accessToken);
     return { accessToken: creds.accessToken };
@@ -75,7 +77,7 @@ class Api {
 
   async getUser(): Promise<UserApiType> {
     const url = new URL(this.mainUrl + "users");
-    console.log("HERE: ", this.defaultHeaders.get("Authorization"))
+    console.log("HERE: ", this.defaultHeaders.get("Authorization"));
     const result = await this.fetcher(url.toString(), {
       method: "GET",
       headers: this.defaultHeaders,
@@ -167,29 +169,27 @@ class Api {
     return await result.json();
   }
 
-  async getProducts(
+  async getAccessPoints(
     page: number,
     limit: number,
-    status?: string,
-    filter?: Record<string, any>,
-    inventoryStatus?: string
-  ) {
+    filter?: Record<string, any>
+  ): Promise<components["schemas"]["GetAPsSchema"]> {
     try {
-      // const queryString = stringify({
-      //   limit,
-      //   status,
-      //   page,
-      //   ...filter,
-      //   inventoryStatus,
-      // });
+      const queryString = stringify({
+        limit,
+        page,
+        ...filter,
+      });
 
-      const url = new URL(this.mainUrl + `internal/inventory/product/list`);
+      const url = new URL(this.mainUrl + `access-points/?${queryString}`);
       const result = await this.fetcher(url.toString(), {
         method: "GET",
         headers: this.defaultHeaders,
       });
+
       const data = await result.json();
-      return data.data;
+
+      return data;
     } catch (e: any) {
       console.warn(e);
       throw e;

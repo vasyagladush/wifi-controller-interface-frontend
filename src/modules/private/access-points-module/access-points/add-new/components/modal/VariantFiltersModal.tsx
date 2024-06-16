@@ -8,7 +8,7 @@ import { useModalManager } from "../../../../../../../context/ModalManager";
 // import { AdvancedSearch } from "../../../../../../../components/advanced-search/AdvancedSearch";
 // import { variantsSearchConfig } from "../../variants-search-config/SearchConfig";
 import { useEffect, useState } from "react";
-import { ProductsFilters } from "../../../product-list/hooks/useProductsList";
+import { AccessPointsFilters } from "../../../access-points-list/hooks/useAccessPointsList";
 // import { ChangeType } from "../../../../../../../components/advanced-search/AdvancedSearch.interface";
 
 const Wrapper = styled.div``;
@@ -29,7 +29,7 @@ const CancelButton = styled(Button)`
 
 interface FilterModalProps {
   onFiltersChange: (val: Record<string, any>) => void;
-  filterValues: Partial<ProductsFilters>;
+  filterValues: Partial<AccessPointsFilters>;
 }
 
 const VariantsFilterModal: React.FunctionComponent<FilterModalProps> = ({
@@ -37,7 +37,7 @@ const VariantsFilterModal: React.FunctionComponent<FilterModalProps> = ({
   filterValues,
 }) => {
   const [filterInternalValues, setFilterInternalValues] =
-    useState<Partial<ProductsFilters>>(filterValues);
+    useState<Partial<AccessPointsFilters>>(filterValues);
 
   useEffect(() => {
     setFilterInternalValues(filterValues);

@@ -21,9 +21,9 @@ import { ColumnDef } from "@tanstack/table-core";
 import { useTableContext } from "./context/TableContext";
 import { ArrowDownBlack } from "../../icons";
 import {
-  ExpandVariantsBtn,
-  IconForVariantsBtn,
-} from "../../../modules/private/access-points-module/tables/components/ExpandableVariantsTreeCell";
+  ExpandNetworksBtn,
+  IconForNetworksBtn,
+} from "../../../modules/private/access-points-module/tables/components/ExpandableAccessPointAndNetworksTreeCell";
 import { useNavigate } from "react-router-dom";
 import { AppRoutes } from "../../../constants/routes";
 
@@ -49,14 +49,14 @@ const Thead = styled.thead`
   z-index: 10;
 `;
 
-const Tr = styled.tr<{ productsTableRow?: boolean }>`
+const Tr = styled.tr<{ accessPointsTableRow?: boolean }>`
   :last-child {
     td {
       border-bottom: 0;
     }
   }
-  ${({ productsTableRow }) =>
-    productsTableRow && ":hover { td { background-color: #f2f4ff;} }"}
+  ${({ accessPointsTableRow }) =>
+    accessPointsTableRow && ":hover { td { background-color: #f2f4ff;} }"}
 `;
 
 const Th = styled.th`
@@ -78,7 +78,7 @@ const Th = styled.th`
 
 const Td = styled.td<{
   padding?: string;
-  prodTableCell?: boolean;
+  apTableCell?: boolean;
   firstCol?: boolean;
   rowWithExpandedVariants?: boolean;
 }>`
@@ -94,7 +94,7 @@ const Td = styled.td<{
     border-right: 0;
   }
 
-  ${({ prodTableCell }) => prodTableCell && "background-color: #F8F9FA;"}
+  ${({ apTableCell }) => apTableCell && "background-color: #F8F9FA;"}
   ${({ firstCol }) => firstCol && "border-bottom: none;"}
   ${({ rowWithExpandedVariants }) =>
     rowWithExpandedVariants && "border-bottom: none;"}
@@ -193,20 +193,20 @@ export const ReactTableComponent: FC<TableProps> = ({
   staticPaginator,
   withSorting,
   loading,
-  productsWithVariantsTable,
+  accessPointWithNetworksTable,
   columnVisibility,
   hideRowPerPageAction,
   alwaysExpandedTable,
-  appliedProductFilters,
+  appliedAccessPointsFilters,
 }) => {
   const { sorting, setSorting } = useTableContext();
   const navigate = useNavigate();
 
   const [expanded, setExpanded] = useState<ExpandedState>({});
 
-  const onClickShowMore = (productId: string) => {
-    navigate(AppRoutes.Private.AccessPoints.AP_EDIT + "/" + productId, {
-      state: { filters: appliedProductFilters },
+  const onClickShowMore = (accessPointId: string) => {
+    navigate(AppRoutes.Private.AccessPoints.AP_EDIT + "/" + accessPointId, {
+      state: { filters: appliedAccessPointsFilters },
     });
   };
 
@@ -338,7 +338,7 @@ export const ReactTableComponent: FC<TableProps> = ({
                     row.subRows
                       .slice(
                         0,
-                        productsWithVariantsTable &&
+                        accessPointWithNetworksTable &&
                           !alwaysExpandedTable &&
                           hasMoreThanFourSubRows
                           ? 4
@@ -350,19 +350,19 @@ export const ReactTableComponent: FC<TableProps> = ({
                             <Tr
                               onClick={handleRowClick(row)}
                               key={subRow.id}
-                              productsTableRow={productsWithVariantsTable}
+                              accessPointsTableRow={accessPointWithNetworksTable}
                             >
                               {subRow.getVisibleCells().map((cell, i) => {
                                 return (
                                   <Td
                                     padding={padding}
                                     key={cell.id}
-                                    prodTableCell={
-                                      productsWithVariantsTable && i !== 0
+                                    apTableCell={
+                                      accessPointWithNetworksTable
                                     }
-                                    firstCol={
-                                      productsWithVariantsTable && i === 0
-                                    }
+                                    // firstCol={
+                                    //   accessPointWithNetworksTable
+                                    // }
                                   >
                                     {flexRender(
                                       cell.column.columnDef.cell,
@@ -372,7 +372,7 @@ export const ReactTableComponent: FC<TableProps> = ({
                                 );
                               })}
                             </Tr>
-                            {productsWithVariantsTable &&
+                            {accessPointWithNetworksTable &&
                               !alwaysExpandedTable &&
                               hasMoreThanFourSubRows &&
                               subRowIndex === 3 && (
@@ -385,9 +385,9 @@ export const ReactTableComponent: FC<TableProps> = ({
                                     }
                                   >
                                     <ShowMoreWrapper>
-                                      <ExpandVariantsBtn
+                                      <ExpandNetworksBtn
                                         onClick={() => {
-                                          onClickShowMore(row.original._id); // The product ID should be here
+                                          onClickShowMore(row.original.id);
                                         }}
                                       >
                                         <Typography
@@ -396,8 +396,8 @@ export const ReactTableComponent: FC<TableProps> = ({
                                         >
                                           View all
                                         </Typography>
-                                        <IconForVariantsBtn isExpanded />
-                                      </ExpandVariantsBtn>
+                                        <IconForNetworksBtn isExpanded />
+                                      </ExpandNetworksBtn>
                                     </ShowMoreWrapper>
                                   </td>
                                 </ShowMoreTr>

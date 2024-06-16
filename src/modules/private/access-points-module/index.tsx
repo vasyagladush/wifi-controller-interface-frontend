@@ -5,7 +5,7 @@ import { SuspenseLoader } from "../../../components/suspense-loader/SuspenseLoad
 import { TableContextProvider } from "../../../components/ui-kit/ReactTable/context/TableContext";
 import { IncomingInventoryContextProvider } from "./context/IncomingInventoryContextProvider";
 
-const ProductsModule = lazy(async () => await import("./access-points"));
+const AccessPointsModule = lazy(async () => await import("./access-points"));
 
 
 const InventoryModule = () => {
@@ -17,7 +17,7 @@ const InventoryModule = () => {
               path="/*"
               element={
                 <SuspenseLoader>
-                  <ProductsModule />
+                  <AccessPointsModule />
                 </SuspenseLoader>
               }
             />

@@ -14,7 +14,7 @@ import { ProductVariantApiType } from "../../../../../../util/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useModalManager } from "../../../../../../context/ModalManager";
 import VariantsFilterModal from "./modal/VariantFiltersModal";
-import { ProductsFilters } from "../../product-list/hooks/useProductsList";
+import { AccessPointsFilters } from "../../access-points-list/hooks/useAccessPointsList";
 
 const RightPanelContainer = styled.div`
   max-height: 1995px;
@@ -157,8 +157,8 @@ interface VariantsListProps {
   hasNextPage?: boolean;
   setSelectedVariant: (variant: ProductVariantApiType) => void;
   variantListLoading: boolean;
-  setFilters: (val: Partial<ProductsFilters>) => void;
-  filterValues: Partial<ProductsFilters>;
+  setFilters: (val: Partial<AccessPointsFilters>) => void;
+  filterValues: Partial<AccessPointsFilters>;
   handleFiltersClear: () => void;
 }
 

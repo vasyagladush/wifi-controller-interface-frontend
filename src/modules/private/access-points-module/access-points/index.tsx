@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import { ProductsList } from "./product-list/ProductList";
-import { AddNewProduct } from "./add-new/AddNewProduct";
+import { AccessPointsList } from "./access-points-list/AccessPointsList";
+import { AddNewAccessPoint } from "./add-new/AddNewAccessPoint";
 
-const ProductsModule = () => {
+const AccessPointsModule = () => {
   return (
     <Routes>
-      <Route index element={<ProductsList />} />
-      <Route path="new" element={<AddNewProduct />} />
-      <Route path="edit/:id" element={<AddNewProduct editing />} />
+      <Route index element={<AccessPointsList />} />
+      {/* <Route path="new" element={<AddNewAP />} /> */}
+      <Route path="edit/:id" element={<AddNewAccessPoint editing />} />
     </Routes>
   );
 };
 
-export default ProductsModule;
+export default AccessPointsModule;

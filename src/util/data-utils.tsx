@@ -5,6 +5,8 @@ import { DateTime } from "luxon";
 import styled from "styled-components";
 import { Typography, TypographyVariant } from "../components/ui-kit";
 import { Clock } from "../components/icons";
+import { components } from "./backend-api-types";
+import { AccessPointTypeForTables } from "./types";
 
 const Row = styled.div<{ overdue?: boolean }>`
   display: flex;
@@ -216,4 +218,34 @@ export const handleDownloadPdfFromBase64 = (urlBase64: string) => {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+};
+
+export const getNetworkFromTableRowData = (
+  tableRowData: AccessPointTypeForTables
+): components["schemas"]["APSchema"]["networks"][number] | undefined => {
+  return tableRowData.subRows?.[0];
+};
+
+export const makeCorrectFormOfAccessPointsForTables = (
+  accessPoints?: components["schemas"]["APSchema"][]
+): AccessPointTypeForTables[] => {
+  return (
+    accessPoints?.map((accessPoint) => {
+      const { networks, ...rest } = accessPoint;
+
+      const sortedNetworks = networks.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+
+      const subRows = sortedNetworks.map((network) => ({
+        ...network,
+        parent: accessPoint,
+      }));
+
+      return {
+        ...rest,
+        subRows,
+      };
+    }) ?? []
+  );
 };

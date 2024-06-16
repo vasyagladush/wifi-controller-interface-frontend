@@ -1,6 +1,6 @@
 import { VisibilityState, type ColumnDef, Row } from "@tanstack/react-table";
 import { ReactElement } from "react";
-import { ProductsFilters } from "../../../modules/private/access-points-module/access-points/product-list/hooks/useProductsList";
+import {AccessPointsFilters } from "../../../modules/private/access-points-module/access-points/access-points-list/hooks/useAccessPointsList";
 
 export interface PaginationControl {
   totalDocs: number;
@@ -28,9 +28,9 @@ export interface TableProps {
   staticPaginator?: boolean;
   withSorting?: boolean;
   loading?: boolean;
-  productsWithVariantsTable?: boolean;
+  accessPointWithNetworksTable?: boolean;
   columnVisibility?: VisibilityState;
   hideRowPerPageAction?: boolean;
   alwaysExpandedTable?: boolean;
-  appliedProductFilters?: ProductsFilters;
+  appliedAccessPointsFilters?: AccessPointsFilters;
 }
