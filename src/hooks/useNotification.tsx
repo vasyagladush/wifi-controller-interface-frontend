@@ -11,7 +11,7 @@ export enum NotificationTypes {
 const { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } = toastifyIcons();
 
 export const useNotification = () => {
-  const showNotification = (content: string, type = NotificationTypes.INFO) => {
+  const showNotification = (content: any, type = NotificationTypes.INFO) => {
     switch (type) {
       case NotificationTypes.INFO:
         toast.info(content, { icon: InfoIcon });
@@ -23,7 +23,17 @@ export const useNotification = () => {
         toast.warning(content, { icon: WarningIcon });
         break;
       case NotificationTypes.DANGER:
-        toast.error(content, { icon: ErrorIcon });
+        if ("detail" in content && content.detail) {
+          console.log(toast.error(content.detail, { icon: ErrorIcon }));
+        } else {
+          try {
+            console.log(
+              toast.error(JSON.stringify(content), { icon: ErrorIcon })
+            );
+          } catch {
+            toast.error("Something went wrong", { icon: ErrorIcon });
+          }
+        }
         break;
     }
   };
