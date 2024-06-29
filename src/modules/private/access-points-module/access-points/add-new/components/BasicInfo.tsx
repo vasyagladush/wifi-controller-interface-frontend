@@ -21,7 +21,7 @@ const Container = styled.div`
   padding: 30px;
   background: #fff;
   border: 1px solid #eeeeee;
-  border-radius: 0px;
+  border-radius: 10px;
 `;
 
 const StyledDropdownFormField = styled(DropdownFormField)`

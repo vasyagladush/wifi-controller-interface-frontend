@@ -39,7 +39,7 @@ const TabsContainer = styled.div`
   padding: 30px;
   background: #ffffff;
   border: 1px solid #eeeeee;
-  border-radius: 0px;
+  border-radius: 10px;
 `;
 
 export const AccessPointsList = () => {

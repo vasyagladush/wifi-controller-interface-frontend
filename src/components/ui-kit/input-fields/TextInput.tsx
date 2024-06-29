@@ -66,7 +66,7 @@ const WrapperTextField = styled.div<WrapperTextFieldProps>`
   justify-content: space-between;
   align-items: center;
   border: 1px solid;
-  border-radius: 0px;
+  border-radius: 10px;
   height: 36px;
   padding: 2px 12px;
   box-sizing: border-box;

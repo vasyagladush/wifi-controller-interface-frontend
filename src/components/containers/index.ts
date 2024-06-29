@@ -10,7 +10,7 @@ export const DefaultContainer = styled.div`
   padding: 25px 17px 20px 20px;
   background: #ffffff;
   border: 1px solid #eeeeee;
-  border-radius: 0px;
+  border-radius: 10px;
 
   @media (max-width: 1211px) {
     width: calc(50% - 11px - 20px - 16px);
@@ -33,7 +33,7 @@ export const EnlargedContainer = styled.div`
   width: calc(68% - 30px * 2 - 27px);
   background: #ffffff;
   border: 1px solid #eeeeee;
-  border-radius: 0px;
+  border-radius: 10px;
 `;
 
 export const ReducedContainer = styled(EnlargedContainer)`

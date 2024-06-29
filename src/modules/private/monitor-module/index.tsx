@@ -45,7 +45,7 @@ const MonitorModule = () => {
           title="Monitor"
           subtitle="Whole data about your network here"
         />
-        <DateFilterDropdown
+        {/* <DateFilterDropdown
           defaultItem={dateFilter}
           onChange={setDateFilter}
           items={[
@@ -53,10 +53,10 @@ const MonitorModule = () => {
             { label: "Last 90 days", value: "90" },
             { label: "Last year", value: "365" },
           ]}
-        />
+        /> */}
       </TopLine>
-      <TopInfoCards />
-      <FlexLine>
+      {/* <TopInfoCards /> */}
+      {/* <FlexLine>
         <LineChart dateFilter={dateFilter.value!} />
         <CircleChart />
       </FlexLine>
@@ -70,7 +70,7 @@ const MonitorModule = () => {
       </FlexLine>
       <FlexLine>
         <LatestOrders />
-      </FlexLine>
+      </FlexLine> */}
     </Container>
   );
 };

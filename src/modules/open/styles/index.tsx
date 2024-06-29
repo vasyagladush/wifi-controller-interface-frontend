@@ -71,7 +71,7 @@ export const ValidationWrapper = styled.div<{ active?: boolean }>`
   letter-spacing: 0;
   text-align: left;
   box-shadow: 0 2px 12px rgba(19, 39, 63, 0.15);
-  border-radius: 0px;
+  border-radius: 10px;
   color: #556CB1;
   margin-top: ${(props) => (props.active ? "24px" : "0")};
   max-height: ${(props) => (props.active ? "300px" : "0")};
