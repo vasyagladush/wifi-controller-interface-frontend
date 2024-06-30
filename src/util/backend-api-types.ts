@@ -31,6 +31,9 @@ export interface paths {
      */
     get: operations["get_ap_configs_access_points__get"];
   };
+  "/console/": {
+    post: operations["cmd_input_console__post"];
+  };
 }
 
 export interface components {
@@ -66,6 +69,21 @@ export interface components {
       /** Networks */
       networks: components["schemas"]["NetworkNameSchema"][];
     };
+    /**
+     * CmdSchema
+     * @example {
+     *   "args": [
+     *     "variables"
+     *   ],
+     *   "cmd": "show"
+     * }
+     */
+    CmdSchema: {
+      /** Cmd */
+      cmd: string;
+      /** Args */
+      args: string[];
+    };
     /** GetAPsSchema */
     GetAPsSchema: {
       /** Docs */
@@ -94,6 +112,19 @@ export interface components {
       id: number;
       /** Name */
       name: string;
+    };
+    /** NetworkSetSchema */
+    NetworkSetSchema: {
+      /** Id */
+      id: number;
+    };
+    /** PutAPSchema */
+    PutAPSchema: {
+      /** Name */
+      name?: Partial<string> & Partial<unknown>;
+      /** Networks */
+      networks?: Partial<components["schemas"]["NetworkSetSchema"][]> &
+        Partial<unknown>;
     };
     /**
      * UserLoginCredentialsSchema
@@ -271,6 +302,8 @@ export interface operations {
     responses: {
       /** Successful Response */
       204: never;
+      /** Invalid ID */
+      400: unknown;
       /** Unauthorized */
       401: unknown;
       /** Validation Error */
@@ -279,8 +312,11 @@ export interface operations {
           "application/json": components["schemas"]["HTTPValidationError"];
         };
       };
-      /** Endpoint will be implemented very soon */
-      501: unknown;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PutAPSchema"];
+      };
     };
   };
   /**
@@ -309,6 +345,29 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["HTTPValidationError"];
         };
+      };
+    };
+  };
+  cmd_input_console__post: {
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CmdSchema"];
       };
     };
   };

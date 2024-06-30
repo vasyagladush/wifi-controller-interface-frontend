@@ -86,6 +86,25 @@ class Api {
     return data;
   }
 
+  async postToConsole(args: Array<string>) {
+    const url = new URL(this.mainUrl + "console");
+
+    const payload: components["schemas"]["CmdSchema"] = {
+      cmd: args[0],
+      args: args.splice(1),
+    };
+
+    const result = await this.fetcher(url.toString(), {
+      method: "POST",
+      headers: this.defaultHeaders,
+      body: JSON.stringify(payload),
+    });
+
+    console.log(result);
+
+    return await result.json();
+  }
+
   async getCategories(customFilter?: Record<string, any>): Promise<any> {
     // const queryString = stringify({
     //   ...customFilter,

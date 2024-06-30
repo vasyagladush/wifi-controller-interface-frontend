@@ -1,4 +1,4 @@
-const ConsoleFrame = () => {
+const MonitorFrame = () => {
   return (
     <iframe
       src="https://example.org"
@@ -8,4 +8,4 @@ const ConsoleFrame = () => {
   );
 };
 
-export default ConsoleFrame;
+export default MonitorFrame;

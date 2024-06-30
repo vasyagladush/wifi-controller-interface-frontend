@@ -4,8 +4,11 @@ import {
   PageTitle,
   DateFilterDropdown,
   FilterOption,
+  Typography,
+  TypographyVariant,
 } from "../../../components/ui-kit";
-import ConsoleFrame from "./components/ConsoleFrame";
+import ReactConsole from "@webscopeio/react-console";
+import { usePostConsole } from "./hooks/usePostConsole";
 
 const Container = styled.div`
   display: flex;
@@ -19,12 +22,41 @@ const TopLine = styled.div`
 `;
 
 const ConsoleModule = () => {
+  const [history, setHistory] = useState<Array<string>>([]);
+
+  const addHistoryItem = (entry: string) => {
+    setHistory(history.concat(entry));
+  };
+
+  const { postToConsole } = usePostConsole();
+
   return (
     <Container>
       <TopLine>
-        <PageTitle title="Console" subtitle="SSH to ..." />
+        <PageTitle
+          title="Console"
+          subtitle={`Control the network directly via console.`}
+        />
       </TopLine>
-      <ConsoleFrame />
+
+      <Typography
+        style={{ marginBottom: "20px" }}
+        variant={TypographyVariant.BODY13_REGULAR}
+      >
+        Use 'clear' to clear the console.
+      </Typography>
+
+      <ReactConsole
+        autoFocus
+        welcomeMessage="Welcome to SKN Telephoners..."
+        history={history}
+        onAddHistoryItem={addHistoryItem}
+        noCommandFound={async (...args: Array<string>) => {
+          const res = await postToConsole(args);
+          return res ?? "Unknown command";
+        }}
+        commands={{}}
+      />
     </Container>
   );
 };

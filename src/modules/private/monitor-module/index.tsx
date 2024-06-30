@@ -13,6 +13,7 @@ import { SalesLeaderboard } from "./components/tables/SalesLeaderboard";
 import { TopSalesChannels } from "./components/tables/TopSalesChannels";
 import { TopWholesaleClients } from "./components/tables/TopWholesaleClients";
 import { TopInfoCards } from "./components/topInfoCards";
+import MonitorFrame from "./components/MonitorFrame";
 
 const Container = styled.div`
   display: flex;
@@ -55,6 +56,7 @@ const MonitorModule = () => {
           ]}
         /> */}
       </TopLine>
+      <MonitorFrame />
       {/* <TopInfoCards /> */}
       {/* <FlexLine>
         <LineChart dateFilter={dateFilter.value!} />
