@@ -170,54 +170,18 @@ export const ProfileSettings: React.FunctionComponent = () => {
           Personal information
         </Typography>
         <Line />
-        <AvatarUploader
-          value={{ fileValue: file, urlValue: avatarUrl }}
-          handleFile={(file: File | null, avatarUrl?: string) => {
-            setFile(file);
-            setAvatarUrl(avatarUrl);
-          }}
-          // disabled={
-          //   !checkAccessByPolicies(
-          //     [Policies.USER.ADMIN_ACCESS],
-          //     [Policies.USER.UPDATE_OWN_USER_INFO]
-          //   )
-          // }
-        />
         <ViewRow>
           <StyledTextFormInput
             control={control}
             name="firstName"
             label="First name"
             placeholder="John"
-            // disabled={
-            //   !checkAccessByPolicies(
-            //     [Policies.USER.ADMIN_ACCESS],
-            //     [Policies.USER.UPDATE_OWN_USER_INFO]
-            //   )
-            // }
           />
           <StyledTextFormInput
             control={control}
             name="lastName"
             label="Last name"
             placeholder="Doe"
-            // disabled={
-            //   !checkAccessByPolicies(
-            //     [Policies.USER.ADMIN_ACCESS],
-            //     [Policies.USER.UPDATE_OWN_USER_INFO]
-            //   )
-            // }
-          />
-          <StyledTextFormInput
-            control={control}
-            name="job"
-            label="Job title"
-            // disabled={
-            //   !checkAccessByPolicies(
-            //     [Policies.USER.ADMIN_ACCESS],
-            //     [Policies.USER.UPDATE_OWN_USER_INFO]
-            //   )
-            // }
           />
         </ViewRow>
         <ViewRow>
@@ -234,31 +198,6 @@ export const ProfileSettings: React.FunctionComponent = () => {
           </ContactFieldContainer>
           <div style={{ flex: 1 }} />
         </ViewRow>
-        <ViewRow style={{ marginTop: 20 }}>
-          <Button
-            loading={loading}
-            onClick={handleSubmit(onSubmit)}
-            disabled={disabled}
-          >
-            Save
-          </Button>
-        </ViewRow>
-        <Line style={{ marginBottom: 16 }} />
-        {changePasswordOpen ? (
-          <PasswordForm handleClose={handlePasswordChange(false)} />
-        ) : (
-          <>
-            <ViewRow>
-              <Button
-                onClick={handlePasswordChange(true)}
-                variant={ButtonVariant.OUTLINED}
-              >
-                Change password
-              </Button>
-            </ViewRow>
-            <Line />
-          </>
-        )}
       </ContainerBox>
     </MainContainer>
   );

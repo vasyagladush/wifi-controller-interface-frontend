@@ -42,10 +42,13 @@ const MonitorModule = () => {
   return (
     <Container>
       <TopLine>
-        <PageTitle
-          title="Monitor"
-          subtitle="Whole data about your network here"
-        />
+        <div style={{ flexDirection: "column", marginRight: "auto" }}>
+          <PageTitle
+            title="Monitor"
+            subtitle="Whole data about your network here"
+          />
+        </div>
+
         {/* <DateFilterDropdown
           defaultItem={dateFilter}
           onChange={setDateFilter}

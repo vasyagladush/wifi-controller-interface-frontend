@@ -3,7 +3,6 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AppRoutes } from "../../constants/routes";
-import { useModalManager } from "../../context/ModalManager";
 import { useAuthCheck } from "../../hooks/useAuthCheck";
 import Header from "../header";
 import {
@@ -13,7 +12,6 @@ import {
 } from "../icons";
 import { LoadingBlock } from "../loading-block/LoadingBlock";
 import { SideMenu } from "../ui-kit";
-import { useUserContext } from "../../context/UserContextProvider";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,8 +50,6 @@ const Content = styled.div`
 `;
 
 export const PrivateLayout = () => {
-  const { user } = useUserContext();
-  const { addModal, modals } = useModalManager();
   const location = useLocation();
 
   const menuItems = useMemo(
@@ -101,10 +97,6 @@ export const PrivateLayout = () => {
         label: "API Keys",
         isActive: location.pathname === AppRoutes.Private.Settings.API_KEYS,
         route: AppRoutes.Private.Settings.API_KEYS,
-        // hidden: !checkAccessByPolicies(
-        //   [Policies.API_KEY.ADMIN_ACCESS],
-        //   [Policies.API_KEY.VIEW_API_KEYS]
-        // ),
       },
     ],
     [location.pathname] // [location.pathname, policies]

@@ -191,13 +191,6 @@ const Header: React.FunctionComponent<HeaderProps> = ({ landing }) => {
               />
             </BurgerMenu>
             <ProfileWrapper>
-              {
-                // checkAccessByPolicies(
-                //   [Policies.COMPANY.ADMIN_ACCESS],
-                //   [Policies.COMPANY.ACCESS_COMPANY_SETTINGS]
-                // )
-                true && <SettingsButton onClick={settingsNavigate} />
-              }
               <Avatar
                 size={AvatarSizeVariant.SMALL}
                 avatarSrc={user.avatar?.url}

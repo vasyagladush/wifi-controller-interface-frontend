@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Cross } from "../../../../../../../components/icons";
 import {
   Button,
-  ButtonNetwork,
+  ButtonVariant,
   Typography,
   TypographyVariant,
 } from "../../../../../../../components/ui-kit";
@@ -80,14 +80,14 @@ export const BottomMenu: FC<BottomMenuProps> = ({ items, onCrossButton }) => {
     <BottomMenuContainer>
       <LeftSection>
         <StyledCross onClick={resetSelectedOrders} />
-        <StyledTypography color="#495B6C" network={TypographyVariant.HEADLINE}>
+        <StyledTypography color="#495B6C" variant={TypographyVariant.HEADLINE}>
           Selected networks:{" "}
           <span style={{ color: "#556CB1" }}>{items?.length}</span>
         </StyledTypography>
       </LeftSection>
       <RightSection>
         <Buttons>
-          <CancelButton network={ButtonNetwork.TEXT}>Cancel</CancelButton>
+          <CancelButton variant={ButtonVariant.TEXT}>Cancel</CancelButton>
           <DeleteButtonWithChildren onClick={handleBulkArchive}>
             Delete
           </DeleteButtonWithChildren>

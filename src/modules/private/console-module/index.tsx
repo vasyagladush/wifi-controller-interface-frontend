@@ -33,10 +33,12 @@ const ConsoleModule = () => {
   return (
     <Container>
       <TopLine>
-        <PageTitle
-          title="Console"
-          subtitle={`Control the network directly via console.`}
-        />
+        <div style={{ flexDirection: "column", marginRight: "auto" }}>
+          <PageTitle
+            title="Console"
+            subtitle={`Control the network directly via console.`}
+          />
+        </div>
       </TopLine>
 
       <Typography
