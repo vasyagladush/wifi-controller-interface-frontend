@@ -1,8 +1,8 @@
 const MonitorFrame = () => {
   return (
     <iframe
-      src="https://example.org"
-      title="Console"
+      src={process.env.REACT_APP_MONITOR_URL}
+      title="Monitor"
       style={{ border: "none", height: "500px" }}
     />
   );
