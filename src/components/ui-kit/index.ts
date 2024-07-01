@@ -15,7 +15,6 @@ export * from "./date-picker/DatePicker.interface";
 export * from "./drop-down/Dropdown";
 export * from "./drop-down/Dropdown.interface";
 export * from "./drop-down/DateFilterDropdown";
-export * from "./drop-down/CreatedByDropdown";
 export * from "./drop-zone/DropZone";
 export * from "./filter-tabs/FilterTabs";
 export * from "./filter-tabs/FilterTabs.interface";

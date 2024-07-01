@@ -72,13 +72,13 @@ export const AccessPointsList = () => {
   }, [error]);
 
   useEffect(() => {
-    const selectedProductIds = selectedAccessPoints.map(
-      (product) => product._id
+    const selectedAccessPointIds = selectedAccessPoints.map(
+      (accessPoint) => accessPoint._id
     );
-    const updatedSelectedProducts = mappedAccessPoints.filter((ap) =>
-      selectedProductIds.includes(ap.id)
+    const updatedSelectedAPs = mappedAccessPoints.filter((ap) =>
+      selectedAccessPointIds.includes(ap.id)
     );
-    setSelectedAccessPoints(updatedSelectedProducts);
+    setSelectedAccessPoints(updatedSelectedAPs);
   }, [mappedAccessPoints]);
 
   return (
@@ -88,43 +88,8 @@ export const AccessPointsList = () => {
           <div style={{ flexDirection: "column", marginRight: "auto" }}>
             <PageTitle title="Access points" subtitle="Edit access points" />
           </div>
-          {/* {true && (
-            <Button
-              leftIcon={<BiImport />}
-              variant={ButtonVariant.OUTLINED}
-              onClick={async () => {
-                showImportProductsModal();
-              }}
-            >
-              Import
-            </Button>
-          )}
-          <Button
-            leftIcon={<BiExport />}
-            variant={ButtonVariant.OUTLINED}
-            onClick={getCSV}
-            loading={loading1}
-          >
-            Export
-          </Button> */}
-          {/* {true && (
-            <Button  const { addModal, removeLastModal } = useModalManager();
-              leftIcon={<Plus />}
-              onClick={async () => {
-                navigate(AppRoutes.Private.AccessPoints.AP_CREATE);
-              }}
-            >
-              Add AP
-            </Button>
-          )} */}
         </TopRowContainer>
         <TabsContainer>
-          {/* <StyledAdvancedSearch
-            config={productsSearchConfig}
-            onChange={onFiltersChange}
-            changeType={ChangeType.ON_CHANGE}
-            isLive
-          /> */}
           <AccessPointsTableTree
             refreshAccessPoints={refresh}
             data={mappedAccessPoints}

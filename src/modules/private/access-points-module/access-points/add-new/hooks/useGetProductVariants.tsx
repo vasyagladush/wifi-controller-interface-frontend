@@ -1,8 +1,8 @@
 import Api from "../../../../../../util/api";
 import { useEffect, useMemo, useState } from "react";
-import { ProductVariantApiType } from "../../../../../../util/types";
+import { AccessPointNetworkApiType } from "../../../../../../util/types";
 
-export const useGetProductVariants = (
+export const useGetAccessPointNetworks = (
   id?: string,
   filter?: any
   // sort = { field: "createdAt", direction: "DESC" }
@@ -13,21 +13,21 @@ export const useGetProductVariants = (
   const [limit, setLimit] = useState<number>(50);
   const [totalDocs, setTotalDocs] = useState<number>(0);
 
-  const [productVariantsList, setProductVariants] = useState<
-    ProductVariantApiType[]
+  const [accessPointNetworksList, setAccessPointNetworks] = useState<
+    AccessPointNetworkApiType[]
   >([]);
 
   useMemo(() => {
-    return productVariantsList.sort((a, b) => {
+    return accessPointNetworksList.sort((a, b) => {
       return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
     });
-  }, [productVariantsList]);
+  }, [accessPointNetworksList]);
 
-  const getProductVariants = async () => {
+  const getAccessPointNetworks = async () => {
     try {
       setLoading(true);
 
-      // const result = await Api.getProductVariants(id ?? "", page, limit, {
+      // const result = await Api.getAccessPointNetworks(id ?? "", page, limit, {
       //   // sort: sort?.field,
       //   // sortDirection: sort?.direction,
       //   ...filter,
@@ -35,12 +35,12 @@ export const useGetProductVariants = (
       const result = { docs: [], totalDocs: 0, hasNextPage: false };
       setHasNextPage(result.hasNextPage);
       if (page > 1) {
-        setProductVariants((prevVariantsData) => [
-          ...prevVariantsData,
+        setAccessPointNetworks((prevNetworksData) => [
+          ...prevNetworksData,
           ...result.docs,
         ]);
       } else {
-        setProductVariants(result.docs);
+        setAccessPointNetworks(result.docs);
       }
       setTotalDocs(result.totalDocs);
       setLoading(false);
@@ -55,9 +55,9 @@ export const useGetProductVariants = (
     setLimit(limitValue);
   };
 
-  const fetchProductVariants = async (pageNumber: number) => {
+  const fetchAccessPointNetworks = async (pageNumber: number) => {
     try {
-      // const result = await Api.getProductVariants(id ?? "", pageNumber, limit, {
+      // const result = await Api.getAccessPointNetworks(id ?? "", pageNumber, limit, {
       //   // sort: sort?.field,
       //   // sortDirection: sort?.direction,
       //   ...filter,
@@ -72,17 +72,17 @@ export const useGetProductVariants = (
     }
   };
 
-  const refreshVariantsList = async () => {
+  const refreshNetworksList = async () => {
     try {
       setLoading(true);
 
       const newData: any[] = [];
       for (let i = 1; i <= page; i++) {
-        const pageData = await fetchProductVariants(i);
+        const pageData = await fetchAccessPointNetworks(i);
         newData.push(...pageData);
       }
 
-      setProductVariants(newData);
+      setAccessPointNetworks(newData);
 
       setLoading(false);
     } catch (e: any) {
@@ -93,7 +93,7 @@ export const useGetProductVariants = (
   };
 
   useEffect(() => {
-    getProductVariants();
+    getAccessPointNetworks();
   }, [
     id,
     page,
@@ -110,11 +110,11 @@ export const useGetProductVariants = (
   ]);
 
   return {
-    productVariantsList,
+    accessPointNetworksList,
     onPaginationChange,
     hasNextPage,
     totalDocs,
-    refreshVariantsList,
+    refreshNetworksList,
     loading,
   };
 };

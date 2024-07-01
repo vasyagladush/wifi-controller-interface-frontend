@@ -9,7 +9,6 @@ import {
   Console,
   Logo,
   Monitor,
-  OrderGeneration2,
   SignOut,
 } from "../icons";
 import {

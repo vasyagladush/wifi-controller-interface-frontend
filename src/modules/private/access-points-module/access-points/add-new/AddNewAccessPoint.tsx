@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import BasicInfo from "./components/BasicInfo";
-import Pricing from "./components/Pricing";
-import DeliveryInfo from "./components/Delivery";
-import InventoryNLocation from "./components/InventoryNLocation";
-import VariantsList from "./components/VariantsList";
-import { useCreateNewProduct } from "./hooks/useCreateNewProduct";
+import BasicInfo from "./components/AccessPointBasicInfo";
+import NetworksList from "./components/NetworksList";
 import {
   useNavigate,
   useParams,
@@ -15,7 +11,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { AnimateAppearanceWrapper } from "../../../../../components/animate-appearence/AnimateAppearanceWrapper";
-import { addNewProductSchema } from "../validation";
+import { addNewAccessPointSchema } from "../validation";
 import {
   Button,
   ImageUploader,
@@ -23,28 +19,20 @@ import {
   Typography,
   TypographyVariant,
 } from "../../../../../components/ui-kit";
-import {
-  NewProductFormValues,
-  ProductIntegrationsSetup,
-  ProductVariantFormValues,
-} from "./types";
-import { useGetProduct } from "./hooks/useGetProduct";
-import { useUpdateProductWithVariant } from "./hooks/useEditProductWithVariant";
+import { NewAccessPointFormValues, NetworkFormValues } from "./types";
+import { useGetAccessPoint } from "./hooks/useGetAccessPoint";
+import { useUpdateAccessPoint } from "./hooks/useEditAccessPoint";
 import { useDialogManager } from "../../../../../context/DialogManager";
-import ProductPreview from "./components/ProductPreview";
-import StatusNChannels from "./components/StatusNChannels";
-import { useGetProductVariants } from "./hooks/useGetProductVariants";
-import ProductDescription from "./components/ProductDesctiption";
-import { ProductVariantApiType } from "../../../../../util/types";
-import { transformVariantServerInputToFormValues } from "./data-transformers/products";
-// import { useListIntegrations } from "../../../settings-module/integrations/e-commerce/hooks/useListIntegrations";
-import OptionsControl from "./components/OptionsControl";
+import AccessPointPreview from "./components/AccessPointPreview";
+import NetworkBasicInfo from "./components/NetworkBasicInfo";
+// import { AccessPointNetworkApiType } from "../../../../../util/types";
+import { transformNetworkServerInputToFormValues } from "./data-transformers/access-points";
 import { AppRoutes } from "../../../../../constants/routes";
 import { useSetDefaultValues } from "./hooks/useSetDefaultValues";
 import { useCheckModified } from "./hooks/useCheckModified";
 import { AccessPointsFilters } from "../access-points-list/hooks/useAccessPointsList";
-// import { useBrandsContext } from "../../context/BrandsContextProvider";
-import ProductSyncSettings from "./components/ProductSyncSettings";
+import NetworkWirelessConfig from "./components/NetworkWirelessConfig";
+import NetworkSecurityConfig from "./components/NetworkSecurityConfig";
 
 const Header = styled.div`
   display: flex;
@@ -70,7 +58,6 @@ const Content = styled.div`
 
 const LeftSide = styled.div`
   flex: 1;
-
   padding-right: 20px;
 `;
 
@@ -84,42 +71,32 @@ export const AddNewAccessPoint: React.FunctionComponent<{
   const navigate = useNavigate();
   const { showDialog } = useDialogManager();
   // const { checkAccessByPolicies } = usePolicyCheck();
-  const { id: productId } = useParams();
+  const { id: accessPointId } = useParams();
   const { state } = useLocation();
-  const variantId = state?.variantId;
-  const incomingVariantFilters: Partial<AccessPointsFilters> = state?.filters;
+  const networkId = state?.networkId;
+  const incomingNetworkFilters: Partial<AccessPointsFilters> = state?.filters;
 
-  const { createNewProduct, loading } = useCreateNewProduct();
-  const { updateProductWithVariant, loading: updateLoading } =
-    useUpdateProductWithVariant();
+  const { updateAccessPoint, loading: updateLoading } = useUpdateAccessPoint();
   // const { refreshBrands } = useBrandsContext();
-  const { productInfo, refreshProductInfo } = useGetProduct(productId);
+  const { accessPointInfo, refreshAccessPointInfo, loading } =
+    useGetAccessPoint(accessPointId);
 
-  const [variantsFilters, setVariantsFilters] = useState<
+  const [networksFilters, setNetworksFilters] = useState<
     Partial<AccessPointsFilters>
   >(
-    incomingVariantFilters?.name
+    incomingNetworkFilters?.name
       ? {
-          name: incomingVariantFilters.name,
+          name: incomingNetworkFilters.name,
         }
       : {}
   );
 
-  const {
-    productVariantsList,
-    hasNextPage,
-    totalDocs,
-    loading: variantListLoading,
-    onPaginationChange,
-    refreshVariantsList,
-  } = useGetProductVariants(productId, variantsFilters);
-
-  const [currentDefaultVariantValues, setCurrentDefaultVariantValues] =
-    useState<ProductVariantFormValues>();
+  const [currentDefaultNetworkValues, setCurrentDefaultNetworkValues] =
+    useState<NetworkFormValues>();
 
   const { defaultValues } = useSetDefaultValues(
-    productInfo,
-    currentDefaultVariantValues,
+    accessPointInfo,
+    currentDefaultNetworkValues,
     editing
   );
 
@@ -131,27 +108,19 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     reset,
 
     formState: { isSubmitting },
-  } = useForm<NewProductFormValues>({
-    resolver: yupResolver(addNewProductSchema),
+  } = useForm<NewAccessPointFormValues>({
+    resolver: yupResolver(addNewAccessPointSchema),
     mode: "onChange",
     defaultValues,
   });
 
-  const { append, remove } = useFieldArray({
-    control,
-    name: "categories",
-  });
-
   const watchAll = watch();
-  const productOptions = watch("options");
-  const currentVariantFields = watch("variant");
-  const availableIntegrationsSetup = watch("availableIntegrationsSetup");
-  const categories = watch("categories");
+  const currentNetworkFields = watch("network");
 
   // const { data: availableIntegrations } = useListIntegrations();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [triggerSetVariant, setTriggerSetVariant] = useState(false);
+  const [triggerSetNetwork, setTriggerSetNetwork] = useState(false);
   const [files, setFiles] = useState<File[]>();
   const [imagesToDetach, setImagesToDetach] = useState<string[]>();
   const [isOptionsEditingMode, setIsOptionsEditingMode] = useState(false);
@@ -164,27 +133,26 @@ export const AddNewAccessPoint: React.FunctionComponent<{
   );
 
   useEffect(() => {
-    onPaginationChange(currentPage, 50);
-  }, [currentPage]);
-
-  useEffect(() => {
     reset(defaultValues);
-  }, [reset, productInfo, currentDefaultVariantValues]);
+  }, [reset, accessPointInfo, currentDefaultNetworkValues]);
 
-  const handleFindCorrespondingVariant = (id: string) => {
-    const foundVariant = productVariantsList.filter((el) => el._id === id);
+  const handleFindCorrespondingNetwork = (id: string) => {
+    // const foundNetwork = accessPointNetworksList.filter((el) => el._id === id); // TODO
+    const foundNetwork = [].filter((el: any) => el._id === id);
 
-    return foundVariant[0];
+    return foundNetwork[0];
   };
 
   useEffect(() => {
-    if (triggerSetVariant) {
-      const foundVariant = handleFindCorrespondingVariant(
-        currentVariantFields._id
+    if (triggerSetNetwork) {
+      const foundNetwork = handleFindCorrespondingNetwork(
+        currentNetworkFields.id
       );
-      handleVariantSelect(foundVariant ?? productVariantsList[0], true);
+      // handleNetworkSelect(foundNetwork ?? accessPointNetworksList[0], true); // TODO
+      handleNetworkSelect(foundNetwork, true);
     }
-  }, [triggerSetVariant, productVariantsList, currentVariantFields._id]);
+  }, [triggerSetNetwork, currentNetworkFields.id]); // TODO
+  // }, [triggerSetNetwork, accessPointNetworksList, currentNetworkFields.id]);
 
   const blocker = useBlocker(() => {
     return !!isAnythingModified && !isSubmitting;
@@ -195,7 +163,7 @@ export const AddNewAccessPoint: React.FunctionComponent<{
       showDialog({
         title: "Unsaved changes",
         content:
-          "You have unsaved changes for this product. Do you want to discard them?",
+          "You have unsaved changes for this access point. Do you want to discard them?",
         actions: [
           {
             type: "outline",
@@ -213,15 +181,12 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     }
   }, [blocker]);
 
-  const handleVariantSelect = (
-    variant: ProductVariantApiType,
-    avoidIsModified?: boolean
-  ) => {
+  const handleNetworkSelect = (network: any, avoidIsModified?: boolean) => {
     if (isAnythingModified && !avoidIsModified) {
       showDialog({
         title: "Unsaved changes",
         content:
-          "You have unsaved changes for this product and variant. Please save them.",
+          "You have unsaved changes for this accessPoint and network. Please save them.",
         actions: [
           {
             type: "outline",
@@ -238,47 +203,30 @@ export const AddNewAccessPoint: React.FunctionComponent<{
         ],
       });
     } else {
-      const transformedVariant =
-        transformVariantServerInputToFormValues(variant);
-      setValue("variant", transformedVariant);
-      setCurrentDefaultVariantValues(transformedVariant);
+      const transformedNetwork =
+        transformNetworkServerInputToFormValues(network);
+      setValue("network", transformedNetwork);
+      setCurrentDefaultNetworkValues(transformedNetwork);
     }
   };
 
-  const prepareProductWithVariantsForEditing = async () => {
-    if (editing && productId && !currentDefaultVariantValues?._id) {
-      const foundVariant = handleFindCorrespondingVariant(variantId);
-      handleVariantSelect(
-        variantId ? foundVariant : productVariantsList[0],
-        true
-      );
-      if (productInfo) {
-        const mappedCategories: Array<{ category?: string }> | undefined =
-          productInfo.categories;
-
-        (Object.keys(productInfo) as Array<keyof NewProductFormValues>).forEach(
-          (k) => {
-            setValue(k, productInfo[k]);
-          }
-        );
-        setValue(
-          "categories",
-          mappedCategories?.length === 0
-            ? [{ category: undefined }]
-            : mappedCategories
-        );
-
-        setValue(
-          "availableIntegrationsSetup",
-          Object.entries(productInfo.availableIntegrationsSetup ?? {})
-        );
-        setValue(
-          "options",
-
-          productInfo.options
-        );
+  const prepareAccessPointWithNetworksForEditing = async () => {
+    if (editing && accessPointId && !currentDefaultNetworkValues?.id) {
+      const foundNetwork = handleFindCorrespondingNetwork(networkId);
+      // handleNetworkSelect(
+      //   networkId ? foundNetwork : accessPointNetworksList[0],
+      //   true
+      // );
+      // TODO
+      handleNetworkSelect(foundNetwork, true);
+      if (accessPointInfo) {
+        (
+          Object.keys(accessPointInfo) as Array<keyof NewAccessPointFormValues>
+        ).forEach((k) => {
+          setValue(k, accessPointInfo[k]);
+        });
       }
-      console.warn(productInfo);
+      console.warn(accessPointInfo);
     }
   };
 
@@ -287,26 +235,22 @@ export const AddNewAccessPoint: React.FunctionComponent<{
   // }, [availableIntegrations]);
 
   useEffect(() => {
-    prepareProductWithVariantsForEditing();
-  }, [productVariantsList, productInfo, currentDefaultVariantValues?._id]);
+    prepareAccessPointWithNetworksForEditing();
+  }, [accessPointInfo, accessPointInfo, currentDefaultNetworkValues?.id]);
 
-  const onSubmit = async (values: NewProductFormValues) => {
+  const onSubmit = async (values: NewAccessPointFormValues) => {
     try {
-      addNewProductSchema.validate(values);
-      if (editing && productId) {
-        await updateProductWithVariant(
-          productId,
-          currentVariantFields._id,
+      addNewAccessPointSchema.validate(values);
+      if (editing && accessPointId) {
+        await updateAccessPoint(
+          accessPointId,
+          currentNetworkFields.id,
           values,
           files,
           imagesToDetach
         );
         // refreshBrands();
         handleRefresh();
-      } else {
-        await createNewProduct(values, files);
-        // refreshBrands();
-        navigate(AppRoutes.Private.AccessPoints.AP_LIST);
       }
     } catch (e: any) {
       console.error(e);
@@ -319,14 +263,11 @@ export const AddNewAccessPoint: React.FunctionComponent<{
 
   const handleRefresh = async () => {
     try {
-      setTriggerSetVariant(true);
+      setTriggerSetNetwork(true);
 
-      await refreshVariantsList();
-      await refreshProductInfo();
-      setFiles(undefined);
-      setImagesToDetach(undefined);
+      await refreshAccessPointInfo();
 
-      setTriggerSetVariant(false);
+      setTriggerSetNetwork(false);
     } catch (e) {}
   };
 
@@ -338,8 +279,8 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     setCurrentPage(currentPage + 1);
   };
 
-  const handleSetVariantsFilters = (filters: Record<string, any>) => {
-    setVariantsFilters(filters);
+  const handleSetNetworksFilters = (filters: Record<string, any>) => {
+    setNetworksFilters(filters);
     setCurrentPage(1);
   };
 
@@ -347,8 +288,8 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     <AnimateAppearanceWrapper>
       <Header>
         <PageTitle
-          title={editing ? "Edit product" : "Add product"}
-          subtitle={"Modify product data"}
+          title={editing ? "Edit access point" : "Add access point"}
+          subtitle={"Modify access point data"}
           onBack={onBack}
         />
 
@@ -362,97 +303,29 @@ export const AddNewAccessPoint: React.FunctionComponent<{
 
       <Content>
         <LeftSide>
-          <ProductPreview
-            control={control}
-            mainImage={currentVariantFields.images?.[0]?.url}
-            variantsLength={totalDocs}
-          />
-          <StatusNChannels
-            control={control}
-            isOptionsEditMode={isOptionsEditingMode}
-            availableIntegrationsSetup={availableIntegrationsSetup}
-          />
-          <VariantsList
-            variantsListItems={productVariantsList}
-            hasNextPage={hasNextPage}
+          {/* <AccessPointPreview control={control} networksLength={totalDocs} /> */}
+          <AccessPointPreview control={control} networksLength={1} />
+          <NetworksList
+            // networksListItems={accessPointNetworksList}
+            networksListItems={[]}
             handleNextPage={onNextPage}
-            setSelectedVariant={handleVariantSelect}
-            selectedVariantId={currentVariantFields?._id}
-            variantListLoading={variantListLoading}
-            setFilters={handleSetVariantsFilters}
-            filterValues={variantsFilters}
+            setSelectedNetwork={handleNetworkSelect}
+            selectedNetworkId={currentNetworkFields?.id}
+            // networkListLoading={networkListLoading}
+            networkListLoading={false}
+            setFilters={handleSetNetworksFilters}
+            filterValues={networksFilters}
             handleFiltersClear={() => {
-              setVariantsFilters({});
+              setNetworksFilters({});
             }}
           />
         </LeftSide>
 
         <RightSide>
-          <BasicInfo
-            control={control}
-            remove={remove}
-            append={() => {
-              append({ category: undefined });
-            }}
-            currentCategories={categories}
-            isOptionsEditMode={isOptionsEditingMode}
-          />
-          <ProductSyncSettings
-            control={control}
-            isOptionsEditMode={isOptionsEditingMode}
-          />
-          <OptionsControl
-            disableEdit={!!isAnythingModified}
-            productId={productId}
-            productOptions={productOptions}
-            isEditMode={isOptionsEditingMode}
-            refresh={handleRefresh}
-            toggleEdit={handleOptionsEdit}
-          />
-
-          <ProductDescription
-            control={control}
-            isOptionsEditMode={isOptionsEditingMode}
-          />
-          {!isOptionsEditingMode && (
-            <ImagesBox>
-              <Typography
-                variant={TypographyVariant.HEADER2}
-                style={{ marginBottom: 10 }}
-              >
-                Images
-              </Typography>
-              <ImageUploader
-                onChange={(fileArray: File[], imagesToDetach?: string[]) => {
-                  setFiles(fileArray);
-                  setImagesToDetach(imagesToDetach);
-                }}
-                value={{
-                  filesValue: files,
-                  bucketUrlsValue: currentVariantFields.images,
-                }}
-              />
-            </ImagesBox>
-          )}
-
-          {(!productId && !editing) || (true && productId && editing) ? (
-            <Pricing
-              isOptionsEditMode={isOptionsEditingMode}
-              control={control}
-              setValue={setValue}
-            />
-          ) : null}
-          <InventoryNLocation
-            editingWithPoliciesAvailable={
-              (!productId && !editing) || (true && !!productId && editing)
-            }
-            control={control}
-            isOptionsEditMode={isOptionsEditingMode}
-          />
-          <DeliveryInfo
-            control={control}
-            isOptionsEditMode={isOptionsEditingMode}
-          />
+          <BasicInfo control={control} />
+          <NetworkBasicInfo control={control} />
+          <NetworkWirelessConfig control={control} />
+          <NetworkSecurityConfig control={control} />
         </RightSide>
       </Content>
     </AnimateAppearanceWrapper>

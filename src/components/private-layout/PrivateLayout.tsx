@@ -9,8 +9,6 @@ import Header from "../header";
 import {
   AccessPoint,
   Console,
-  Dot,
-  MenuItemShoppingBag,
   Monitor,
 } from "../icons";
 import { LoadingBlock } from "../loading-block/LoadingBlock";

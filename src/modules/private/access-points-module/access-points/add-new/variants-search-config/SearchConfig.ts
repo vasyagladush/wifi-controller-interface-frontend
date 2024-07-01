@@ -3,7 +3,7 @@
 //   SearchFieldType,
 // } from "../../../../../../components/advanced-search/AdvancedSearch.interface";
 
-// export const variantsSearchConfig: ISearchFieldConfig[] = [
+// export const networksSearchConfig: ISearchFieldConfig[] = [
 //   {
 //     type: SearchFieldType.AMOUNT_RANGE,
 //     label: "Price",

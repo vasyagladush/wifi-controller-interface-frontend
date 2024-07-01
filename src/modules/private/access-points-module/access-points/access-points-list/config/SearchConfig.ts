@@ -4,7 +4,7 @@ export {};
 //   SearchFieldType,
 // } from "../../../../../../components/advanced-search/AdvancedSearch.interface";
 
-// export const productsSearchConfig: ISearchFieldConfig[] = [
+// export const accessPointsSearchConfig: ISearchFieldConfig[] = [
 //   // {
 //   //   type: SearchFieldType.AMOUNT_RANGE,
 //   //   label: "Price",
@@ -47,8 +47,8 @@ export {};
 //     key: "status",
 //     dropdownValues: [
 //       { label: "All", value: "" },
-//       { label: "Active", value: ProductStatus.ACTIVE },
-//       { label: "Inactive", value: ProductStatus.INACTIVE },
+//       { label: "Active", value: AccessPointStatus.ACTIVE },
+//       { label: "Inactive", value: AccessPointStatus.INACTIVE },
 //     ],
 //   },
 //   // {

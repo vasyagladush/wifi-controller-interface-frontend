@@ -27,7 +27,7 @@ export const optionsSchema = yup.object().shape({
   ),
 });
 
-export const addNewProductSchema = yup.object({
+export const addNewAccessPointSchema = yup.object({
   name: yup.string().required("Name required"),
   categories: yup.array().of(categorySchema),
   brand: yup.string().nullable(),
