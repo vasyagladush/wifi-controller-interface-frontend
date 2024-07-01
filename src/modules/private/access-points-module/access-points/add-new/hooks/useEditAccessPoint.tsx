@@ -4,7 +4,7 @@ import {
   transformAPWithNetworkFormValuesToServer,
   transformNetworkToServerInput,
 } from "../data-transformers/access-points";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 import {
   NotificationTypes,
   useNotification,
@@ -16,7 +16,7 @@ export const useUpdateAccessPoint = () => {
   const updateAccessPoint = async (
     accessPointId: string,
     networkId: string,
-    formData: NewAccessPointFormValues,
+    formData: AccessPointFormValues,
     files?: File[],
     imagesToDetach?: string[]
   ) => {

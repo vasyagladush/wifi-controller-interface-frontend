@@ -34,6 +34,46 @@ export interface paths {
   "/console/": {
     post: operations["cmd_input_console__post"];
   };
+  "/networks/{id}": {
+    /** Returns JSON containg current Giga configuration of the Network with given database id. */
+    get: operations["get_network_config_by_id_networks__id__get"];
+    /**
+     * Endpoint for changing Network's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+     *
+     * **WARNING**: Parameter `id` **CANNOT** be changed.
+     */
+    put: operations["change_network_config_networks__id__put"];
+  };
+  "/wireless/{id}": {
+    /** Returns JSON containg current configuration of the Wireless with given database id. */
+    get: operations["get_wireless_config_by_id_wireless__id__get"];
+    /**
+     * Endpoint for changing Wireless profile's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+     *
+     * **WARNING**: Parameter `id` **CANNOT** be changed.
+     */
+    put: operations["change_wireless_config_wireless__id__put"];
+  };
+  "/security/{id}": {
+    /** Returns JSON containg current configuration of the Security with given database id. */
+    get: operations["get_security_config_by_id_security__id__get"];
+    /**
+     * Endpoint for changing Security profile's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+     *
+     * **WARNING**: Parameter `id` **CANNOT** be changed.
+     */
+    put: operations["change_security_config_security__id__put"];
+  };
+  "/mac-acls/{id}": {
+    /** Returns JSON containg current configuration of the MAC ACL with given database id. */
+    get: operations["get_mac_acl_config_by_id_mac_acls__id__get"];
+    /**
+     * Endpoint for changing MAC ACL's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+     *
+     * **WARNING**: Parameter `id` **CANNOT** be changed.
+     */
+    put: operations["change_mac_acl_config_mac_acls__id__put"];
+  };
 }
 
 export interface components {
@@ -67,7 +107,7 @@ export interface components {
       /** Ip */
       ip: string;
       /** Networks */
-      networks: components["schemas"]["NetworkNameSchema"][];
+      networks: components["schemas"]["GenericIdentSchema"][];
     };
     /**
      * CmdSchema
@@ -83,6 +123,29 @@ export interface components {
       cmd: string;
       /** Args */
       args: string[];
+    };
+    /**
+     * GenericIdSchema
+     * @example {
+     *   "id": 1
+     * }
+     */
+    GenericIdSchema: {
+      /** Id */
+      id: number;
+    };
+    /**
+     * GenericIdentSchema
+     * @example {
+     *   "id": 1,
+     *   "name": "SomeName"
+     * }
+     */
+    GenericIdentSchema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
     };
     /** GetAPsSchema */
     GetAPsSchema: {
@@ -100,18 +163,94 @@ export interface components {
       /** Detail */
       detail?: components["schemas"]["ValidationError"][];
     };
-    /**
-     * NetworkNameSchema
-     * @example {
-     *   "id": 1,
-     *   "name": "Guests"
-     * }
-     */
-    NetworkNameSchema: {
+    /** MacAclSchema */
+    MacAclSchema: {
       /** Id */
       id: number;
       /** Name */
       name: string;
+      /** Macs */
+      macs: string[];
+      /** Security */
+      security: components["schemas"]["GenericIdentSchema"][];
+    };
+    /** MacListSchema */
+    MacListSchema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Macs */
+      macs: string[];
+    };
+    /** NG_AP_Schema */
+    NG_AP_Schema: {
+      /** Id */
+      id: number;
+      /** Deviceid */
+      deviceId: number;
+      /** Name */
+      name: string;
+      /** Ip */
+      ip: string;
+    };
+    /** NG_MAC_ACL_Schema */
+    NG_MAC_ACL_Schema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Macs */
+      macs: string[];
+    };
+    /** NG_Security_Schema */
+    NG_Security_Schema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Wirelesssecuritytype */
+      wirelessSecurityType: number;
+      /** Radius */
+      radius: Partial<string> & Partial<unknown>;
+      /** Eap */
+      eap: boolean;
+      /** Macacltype */
+      macAclType: number;
+      /** Macacls */
+      macAcls: components["schemas"]["NG_MAC_ACL_Schema"][];
+    };
+    /** NG_Wireless_Schema */
+    NG_Wireless_Schema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Vht */
+      vht: boolean;
+      /** Acs */
+      acs: boolean;
+      /** Beaconinterval */
+      beaconInterval: number;
+      /** Rtsctsthreshold */
+      rtsCtsThreshold: number;
+    };
+    /** NetworkGigaSchema */
+    NetworkGigaSchema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Ssid */
+      ssid: string;
+      /** Countrycode */
+      countryCode: string;
+      /** Accesspoints */
+      accessPoints: components["schemas"]["NG_AP_Schema"][];
+      /** Wireless */
+      wireless: components["schemas"]["NG_Wireless_Schema"][];
+      /** Security */
+      security: components["schemas"]["NG_Security_Schema"][];
     };
     /** NetworkSetSchema */
     NetworkSetSchema: {
@@ -125,6 +264,118 @@ export interface components {
       /** Networks */
       networks?: Partial<components["schemas"]["NetworkSetSchema"][]> &
         Partial<unknown>;
+    };
+    /** PutMacAclSchema */
+    PutMacAclSchema: {
+      /** Name */
+      name?: Partial<string> & Partial<unknown>;
+      /** Macs */
+      macs?: Partial<string[]> & Partial<unknown>;
+      /** Security */
+      security?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+    };
+    /** PutNetworkSchema */
+    PutNetworkSchema: {
+      /** Name */
+      name?: Partial<string> & Partial<unknown>;
+      /** Ssid */
+      ssid?: Partial<string> & Partial<unknown>;
+      /** Countrycode */
+      countryCode?: Partial<string> & Partial<unknown>;
+      /** Accesspoints */
+      accessPoints?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+      /** Wireless */
+      wireless?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+      /** Security */
+      security?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+    };
+    /** PutSecuritySchema */
+    PutSecuritySchema: {
+      /** Name */
+      name?: Partial<string> & Partial<unknown>;
+      /** Wirelesssecuritytype */
+      wirelessSecurityType?: Partial<number> & Partial<unknown>;
+      /** Radius */
+      radius?: Partial<string> & Partial<unknown>;
+      /** Eap */
+      eap?: Partial<boolean> & Partial<unknown>;
+      /** Macacltype */
+      macAclType?: Partial<number> & Partial<unknown>;
+      /** Macacls */
+      macAcls?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+      /** Networks */
+      networks?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+    };
+    /** PutWirelessSchema */
+    PutWirelessSchema: {
+      /** Name */
+      name?: Partial<string> & Partial<unknown>;
+      /** Vht */
+      vht?: Partial<boolean> & Partial<unknown>;
+      /** Acs */
+      acs?: Partial<boolean> & Partial<unknown>;
+      /** Beaconinterval */
+      beaconInterval?: Partial<number> & Partial<unknown>;
+      /** Rtsctsthreshold */
+      rtsCtsThreshold?: Partial<number> & Partial<unknown>;
+      /** Networks */
+      networks?: Partial<components["schemas"]["GenericIdSchema"][]> &
+        Partial<unknown>;
+    };
+    /**
+     * SecuritySchema
+     * @example {
+     *   "eap": false,
+     *   "id": 2,
+     *   "mac_acl_type": 1,
+     *   "mac_acls": [
+     *     {
+     *       "id": 2,
+     *       "macs": [
+     *         "01:01:01:01:01:01",
+     *         "01:01:01:01:01:02"
+     *       ],
+     *       "name": "ACL 1"
+     *     }
+     *   ],
+     *   "name": "Default",
+     *   "networks": [
+     *     {
+     *       "id": 2,
+     *       "name": "Guests"
+     *     },
+     *     {
+     *       "id": 3,
+     *       "name": "Employees"
+     *     }
+     *   ],
+     *   "radius": "192.168.1.1",
+     *   "wireless_security_type": 4
+     * }
+     */
+    SecuritySchema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Wirelesssecuritytype */
+      wirelessSecurityType: number;
+      /** Radius */
+      radius: Partial<string> & Partial<unknown>;
+      /** Eap */
+      eap: boolean;
+      /** Macacltype */
+      macAclType: number;
+      /** Macacls */
+      macAcls: components["schemas"]["MacListSchema"][];
+      /** Networks */
+      networks: components["schemas"]["GenericIdentSchema"][];
     };
     /**
      * UserLoginCredentialsSchema
@@ -187,6 +438,42 @@ export interface components {
       msg: string;
       /** Error Type */
       type: string;
+    };
+    /**
+     * WirelessSchema
+     * @example {
+     *   "acs": false,
+     *   "beacon_interval": 30,
+     *   "id": 3,
+     *   "name": "Wireless 1",
+     *   "networks": [
+     *     {
+     *       "id": 2,
+     *       "name": "Guests"
+     *     },
+     *     {
+     *       "id": 3,
+     *       "name": "Employees"
+     *     }
+     *   ],
+     *   "vht": true
+     * }
+     */
+    WirelessSchema: {
+      /** Id */
+      id: number;
+      /** Name */
+      name: string;
+      /** Vht */
+      vht: boolean;
+      /** Acs */
+      acs: boolean;
+      /** Beaconinterval */
+      beaconInterval: number;
+      /** Rtsctsthreshold */
+      rtsCtsThreshold: number;
+      /** Networks */
+      networks: components["schemas"]["GenericIdentSchema"][];
     };
   };
 }
@@ -368,6 +655,250 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["CmdSchema"];
+      };
+    };
+  };
+  /** Returns JSON containg current Giga configuration of the Network with given database id. */
+  get_network_config_by_id_networks__id__get: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["NetworkGigaSchema"];
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Endpoint for changing Network's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+   *
+   * **WARNING**: Parameter `id` **CANNOT** be changed.
+   */
+  change_network_config_networks__id__put: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PutNetworkSchema"];
+      };
+    };
+  };
+  /** Returns JSON containg current configuration of the Wireless with given database id. */
+  get_wireless_config_by_id_wireless__id__get: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["WirelessSchema"];
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Endpoint for changing Wireless profile's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+   *
+   * **WARNING**: Parameter `id` **CANNOT** be changed.
+   */
+  change_wireless_config_wireless__id__put: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PutWirelessSchema"];
+      };
+    };
+  };
+  /** Returns JSON containg current configuration of the Security with given database id. */
+  get_security_config_by_id_security__id__get: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["SecuritySchema"];
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Endpoint for changing Security profile's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+   *
+   * **WARNING**: Parameter `id` **CANNOT** be changed.
+   */
+  change_security_config_security__id__put: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PutSecuritySchema"];
+      };
+    };
+  };
+  /** Returns JSON containg current configuration of the MAC ACL with given database id. */
+  get_mac_acl_config_by_id_mac_acls__id__get: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": components["schemas"]["MacAclSchema"];
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  /**
+   * Endpoint for changing MAC ACL's configuration. The request must be accompanied with a JSON (formatted like the result of the GET request to this endpoint) that contains only the values to be changed.
+   *
+   * **WARNING**: Parameter `id` **CANNOT** be changed.
+   */
+  change_mac_acl_config_mac_acls__id__put: {
+    parameters: {
+      path: {
+        id: unknown;
+      };
+    };
+    responses: {
+      /** Successful Response */
+      200: {
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** Invalid ID */
+      400: unknown;
+      /** Unauthorized */
+      401: unknown;
+      /** Validation Error */
+      422: {
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["PutMacAclSchema"];
       };
     };
   };

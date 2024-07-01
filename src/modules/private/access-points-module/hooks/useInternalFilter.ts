@@ -29,14 +29,6 @@ export const useInternalFilter = (externalData?: any) => {
         });
       }
 
-      if (filters.createdBy) {
-        filteredData = filteredData.filter((el: any) => {
-          return el.createdBy
-            .toLowerCase()
-            .includes(filters.createdBy.toLowerCase());
-        });
-      }
-
       if (filters.from || filters.to) {
         filteredData = filteredData.filter((el: any) => {
           const createdAt = new Date(el.createdAt).getTime();

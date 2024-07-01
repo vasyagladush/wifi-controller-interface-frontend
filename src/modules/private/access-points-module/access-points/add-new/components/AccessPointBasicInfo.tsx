@@ -10,9 +10,8 @@ import {
   Typography,
   TypographyVariant,
 } from "../../../../../../components/ui-kit";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 import { DatePickerFormField } from "../../../../../../components/form-fields/DatePickerFormField";
-import { useCategoriesContext } from "../../../context/CategoriesContextProvider";
 
 const Container = styled.div`
   display: flex;
@@ -62,36 +61,12 @@ const CategoryDropdownFormField = styled(DropdownFormField)<{
 `;
 
 export interface IBasicInfoProps {
-  control: Control<NewAccessPointFormValues>;
+  control: Control<AccessPointFormValues>;
 }
 
 const BasicInfo: FC<IBasicInfoProps> = ({
   control,
 }) => {
-  const { categories } = useCategoriesContext();
-
-  const categoriesDropdownItems = useMemo(() => {
-    const mappedCategories = categories.flatMap((category) => {
-      const mainCategoryItem = {
-        label: category.name,
-        value: category._id,
-      };
-
-      if (category.subCategories && category.subCategories.length > 0) {
-        const subCategoryItems = category.subCategories.map((subCategory: any) => ({
-          label: subCategory.name,
-          value: subCategory._id,
-        }));
-
-        return [mainCategoryItem, ...subCategoryItems];
-      }
-
-      return [mainCategoryItem];
-    });
-
-    return mappedCategories;
-  }, [categories]);
-
   return (
     <Container>
       <Typography color="#556CB1" variant={TypographyVariant.HEADER2}>

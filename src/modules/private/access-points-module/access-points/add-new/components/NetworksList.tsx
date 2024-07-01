@@ -2,7 +2,7 @@
 import React, { Fragment, useMemo } from "react";
 import styled from "styled-components";
 import { Control } from "react-hook-form";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 import {
   LoadingBar,
   Spinner,
@@ -10,11 +10,12 @@ import {
   TypographyVariant,
 } from "../../../../../../components/ui-kit";
 import { Filter, ImageIcon } from "../../../../../../components/icons";
-import { AccessPointNetworkApiType } from "../../../../../../util/types";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useModalManager } from "../../../../../../context/ModalManager";
 import NetworksFilterModal from "./modal/NetworkFiltersModal";
 import { AccessPointsFilters } from "../../access-points-list/hooks/useAccessPointsList";
+import AddNetworkModal from "./modal/AddNetworkModal";
+import { components } from "../../../../../../util/backend-api-types";
 
 const RightPanelContainer = styled.div`
   max-height: 1995px;
@@ -44,9 +45,14 @@ const NetworkCard = styled.div<{ selected: boolean }>`
 
   background-color: ${(props) => (props.selected ? "#f2f4ff" : "#fff")};
   cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #f8f8ff;
+  }
 `;
 export interface IRightPanelProps {
-  control: Control<NewAccessPointFormValues>;
+  control: Control<AccessPointFormValues>;
   currentCategories: Array<{ category?: string }>;
   append: () => void;
   remove: (index: number) => void;
@@ -135,14 +141,14 @@ const GreenDot = styled.div`
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #6CB155;
+  background-color: #6cb155;
   position: absolute;
   top: 0;
   left: 10px;
 `;
 
 const NoNetworks = styled(Typography)`
-  padding: 30px;
+  padding: 20px;
 `;
 
 const Clear = styled(Typography)`
@@ -151,11 +157,11 @@ const Clear = styled(Typography)`
 `;
 
 interface NetworksListProps {
-  networksListItems?: AccessPointNetworkApiType[];
+  networksListItems?: components["schemas"]["APSchema"]["networks"];
   selectedNetworkId?: string;
-  handleNextPage: () => void;
-  hasNextPage?: boolean;
-  setSelectedNetwork: (network: AccessPointNetworkApiType) => void;
+  setSelectedNetwork: (
+    network: components["schemas"]["APSchema"]["networks"][number]
+  ) => void;
   networkListLoading: boolean;
   setFilters: (val: Partial<AccessPointsFilters>) => void;
   filterValues: Partial<AccessPointsFilters>;
@@ -165,8 +171,6 @@ interface NetworksListProps {
 const NetworksList: React.FunctionComponent<NetworksListProps> = ({
   networksListItems,
   selectedNetworkId,
-  handleNextPage,
-  hasNextPage,
   setSelectedNetwork,
   networkListLoading,
   setFilters,
@@ -191,98 +195,94 @@ const NetworksList: React.FunctionComponent<NetworksListProps> = ({
     );
   };
 
-  return (
-    <RightPanelContainer>
-      <Header>
-        <LabelAndFilterBtn>
-          <Typography
-            network={TypographyVariant.HEADER2}
-            style={{ color: "#556CB1" }}
-          >
-            Networks
-          </Typography>
-          <FilterIconWrapper>
-            {hasFilters && <GreenDot />}
-            <StyledFilterIcon onClick={handleShowFilters} />
-            {hasFilters && (
-              <Clear
-                onClick={handleFiltersClear}
-                network={TypographyVariant.CAPTION}
-              >
-                Clear
-              </Clear>
-            )}
-          </FilterIconWrapper>
-        </LabelAndFilterBtn>
-      </Header>
-      <ScrollableArea id="scrollableDiv2">
-        <InfiniteScroll
-          style={{ overflow: "hidden" }}
-          dataLength={networksListItems?.length || 0}
-          next={handleNextPage}
-          hasMore={hasNextPage ?? false}
-          loader={
-            <ScrollSpinnerWrapper>
-              <Spinner />
-            </ScrollSpinnerWrapper>
-          }
-          scrollableTarget="scrollableDiv2"
-        >
-          <StyledLoadingBar loading={networkListLoading} />
-          <InfiniteScrollContent>
-            {networksListItems?.length ? (
-              networksListItems?.map((el) => {
-                return (
-                  <Fragment key={el._id}>
-                    <NetworkCard
-                      selected={el._id === selectedNetworkId}
-                      onClick={() => {
-                        setSelectedNetwork(el);
-                      }}
-                    >
-                      <ImageWrapper>
-                        {el.images?.length ? (
-                          <Img src={el.images[0].url} />
-                        ) : (
-                          <NoImageBg>
-                            <ImageIcon />
-                          </NoImageBg>
-                        )}
-                      </ImageWrapper>
+  const handleAddNetwork = async ({}) => {
+    addModal(
+      <AddNetworkModal
+        accessPointId="test" // TODO
+      />
+    );
+  };
 
-                      {el.accessPointOptionConfig.map((option: any, index: any) => {
-                        return (
-                          <Label
-                            key={option.option._id}
-                            network={TypographyVariant.BODY4}
-                          >
-                            {index !== 0 && "/"}
-                            &nbsp;{option.optionValue}&nbsp;
-                          </Label>
-                        );
-                      })}
-                    </NetworkCard>
-                  </Fragment>
-                );
-              })
-            ) : !hasFilters ? (
-              <NetworkCard selected={true}>
-                <ImageWrapper>
-                  <NoImageBg>
-                    <ImageIcon />
-                  </NoImageBg>
-                </ImageWrapper>
-                <Label network={TypographyVariant.BODY4}>Default</Label>
-              </NetworkCard>
-            ) : (
-              <NoNetworks network={TypographyVariant.BODY2}>
-                No networks found
-              </NoNetworks>
-            )}
-          </InfiniteScrollContent>
-        </InfiniteScroll>
-      </ScrollableArea>
-    </RightPanelContainer>
+  return (
+    <>
+      <RightPanelContainer>
+        <Header>
+          <LabelAndFilterBtn>
+            <Typography
+              variant={TypographyVariant.HEADER2}
+              style={{ color: "#556CB1" }}
+            >
+              Networks
+            </Typography>
+            <FilterIconWrapper>
+              {hasFilters && <GreenDot />}
+              <StyledFilterIcon onClick={handleShowFilters} />
+              {hasFilters && (
+                <Clear
+                  onClick={handleFiltersClear}
+                  variant={TypographyVariant.CAPTION}
+                >
+                  Clear
+                </Clear>
+              )}
+            </FilterIconWrapper>
+          </LabelAndFilterBtn>
+        </Header>
+        <ScrollableArea id="scrollableDiv2">
+          <InfiniteScroll
+            style={{ overflow: "hidden" }}
+            dataLength={networksListItems?.length || 0}
+            next={() => {}}
+            hasMore={false}
+            loader={
+              <ScrollSpinnerWrapper>
+                <Spinner />
+              </ScrollSpinnerWrapper>
+            }
+            scrollableTarget="scrollableDiv2"
+          >
+            <StyledLoadingBar loading={networkListLoading} />
+            <InfiniteScrollContent>
+              {networksListItems?.length ? (
+                networksListItems?.map((el) => {
+                  return (
+                    <Fragment key={el.id}>
+                      <NetworkCard
+                        selected={String(el.id) === selectedNetworkId}
+                        onClick={() => {
+                          setSelectedNetwork(el);
+                        }}
+                      >
+                        <Label
+                          key={String(el.id) + "-label"}
+                          variant={TypographyVariant.HEADLINE}
+                        >
+                          {el.name}
+                        </Label>
+                      </NetworkCard>
+                    </Fragment>
+                  );
+                })
+              ) : (
+                <NoNetworks variant={TypographyVariant.HEADLINE}>
+                  No networks found
+                </NoNetworks>
+              )}
+            </InfiniteScrollContent>
+          </InfiniteScroll>
+        </ScrollableArea>
+      </RightPanelContainer>
+      <Typography
+        variant={TypographyVariant.BODY13}
+        style={{ textAlign: "right", marginRight: "10px" }}
+        onClick={handleAddNetwork}
+        color="#24A5EE"
+        clickable
+        hoverUnderline
+      >
+        + Add network
+      </Typography>
+    </>
   );
 };
 export default NetworksList;

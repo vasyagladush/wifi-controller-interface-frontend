@@ -134,8 +134,7 @@ interface AddNetworkModalProps {
 
 const AddNetworkModal: React.FunctionComponent<AddNetworkModalProps> = ({
   accessPointId,
-  accessPointOptions,
-  // refresh,
+  // refresh, // TODO
 }) => {
   const { removeLastModal } = useModalManager();
   // const { updateAccessPointOptions } = useUpdateAccessPointOptions();

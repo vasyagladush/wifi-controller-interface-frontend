@@ -1,29 +1,24 @@
 import { Route, Routes } from "react-router-dom";
-import { CategoriesList } from "./categories/CategoriesList";
 import { lazy } from "react";
 import { SuspenseLoader } from "../../../components/suspense-loader/SuspenseLoader";
 import { TableContextProvider } from "../../../components/ui-kit/ReactTable/context/TableContext";
-import { IncomingInventoryContextProvider } from "./context/IncomingInventoryContextProvider";
 
 const AccessPointsModule = lazy(async () => await import("./access-points"));
 
-
 const InventoryModule = () => {
   return (
-      <TableContextProvider>
-        <IncomingInventoryContextProvider>
-          <Routes>
-            <Route
-              path="/*"
-              element={
-                <SuspenseLoader>
-                  <AccessPointsModule />
-                </SuspenseLoader>
-              }
-            />
-          </Routes>
-        </IncomingInventoryContextProvider>
-      </TableContextProvider>
+    <TableContextProvider>
+      <Routes>
+        <Route
+          path="/*"
+          element={
+            <SuspenseLoader>
+              <AccessPointsModule />
+            </SuspenseLoader>
+          }
+        />
+      </Routes>
+    </TableContextProvider>
   );
 };
 

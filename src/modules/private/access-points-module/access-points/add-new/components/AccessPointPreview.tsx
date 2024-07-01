@@ -1,5 +1,5 @@
 import { Control, useWatch } from "react-hook-form";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 import styled from "styled-components";
 import {
   Status,
@@ -73,7 +73,7 @@ const Names = styled.div`
 `;
 
 interface AccessPointPreviewInterface {
-  control: Control<NewAccessPointFormValues>;
+  control: Control<AccessPointFormValues>;
   networksLength: number;
 }
 
@@ -103,7 +103,7 @@ const AccessPointPreview: React.FunctionComponent<AccessPointPreviewInterface> =
           </Name>
           <NetworkName>{networkName}</NetworkName>
         </Names>
-        <Name variant={TypographyVariant.BODY13_REGULAR}>
+        <Name variant={TypographyVariant.HEADLINE}>
           Device ID: {!deviceId ?? deviceId !== undefined ? 0 : deviceId}
         </Name>
         {}{" "}

@@ -1,11 +1,9 @@
 import { components } from "../../../../../../util/backend-api-types";
-import {
- 
-} from "../../../../../../util/types";
-import { NewAccessPointFormValues, NetworkFormValues } from "../types";
+import {} from "../../../../../../util/types";
+import { AccessPointFormValues, NetworkFormValues } from "../types";
 import { DateTime } from "luxon";
 
-const collectValues = (values: NewAccessPointFormValues) => {
+const collectValues = (values: AccessPointFormValues) => {
   // const pricing: any = {
   //   cost: values.network.pricing.cost
   //     ? Number(values.network.pricing.cost).toFixed(2)
@@ -65,7 +63,7 @@ const collectValues = (values: NewAccessPointFormValues) => {
 };
 
 export const transformAPWithNetworkFormValuesToServer: (
-  values: NewAccessPointFormValues,
+  values: AccessPointFormValues,
   isUpdate?: boolean
 ) => Partial<any> = (values, isUpdate) => {
   // const { pricing, inventoryInfo, deliveryInfo } = collectValues(values);
@@ -98,7 +96,7 @@ export const transformAPWithNetworkFormValuesToServer: (
 };
 
 export const transformNetworkToServerInput: (
-  values: NewAccessPointFormValues
+  values: AccessPointFormValues
 ) => Partial<any> = (values) => {
   // const { pricing, inventoryInfo, deliveryInfo } = collectValues(values);
 
@@ -119,82 +117,35 @@ export const transformNetworkToServerInput: (
 
 export const transformAccessPointServerInputToFormValues: (
   accessPoint: components["schemas"]["APSchema"]
-) => Partial<NewAccessPointFormValues> = (accessPoint) => {
+) => Partial<AccessPointFormValues> = (accessPoint) => {
   return {
     name: accessPoint.name,
     deviceId: accessPoint.deviceId,
     ip: accessPoint.ip,
-    network: undefined
+    network: undefined,
   };
 };
 
 export const transformNetworkServerInputToFormValues: (
-  accessPointNetwork: components['schemas']['APSchema']['networks'][number]
+  accessPointNetwork: components["schemas"]["NetworkGigaSchema"]
 ) => NetworkFormValues = (network) => {
-  // TODO: update
   return {
-    // _id: accessPointNetwork?._id,
-    // sku: accessPointNetwork?.sku,
-    // description: accessPointNetwork?.description ?? "",
-    // shortDescription: accessPointNetwork?.shortDescription ?? "",
-    // simpleDescription: accessPointNetwork?.simpleDescription ?? "",
-    // hsCode: accessPointNetwork?.hsCode ?? "",
-    // images: accessPointNetwork?.images ?? [],
-    // accessPointOptionConfig: accessPointNetwork?.accessPointOptionConfig,
-    // pricing: {
-    //   cost: accessPointNetwork?.pricing?.cost ?? "",
-    //   markup: accessPointNetwork?.pricing?.markup
-    //     ? accessPointNetwork?.pricing?.markup?.toString()
-    //     : "",
-    //   minOrderQty: accessPointNetwork?.pricing?.minOrderQty
-    //     ? accessPointNetwork?.pricing?.minOrderQty.toString()
-    //     : "",
-    //   maxOrderQty: accessPointNetwork?.pricing?.maxOrderQty
-    //     ? accessPointNetwork.pricing?.maxOrderQty?.toString()
-    //     : "",
-    //   VAT: accessPointNetwork?.pricing?.VAT
-    //     ? accessPointNetwork?.pricing?.VAT.toString()
-    //     : "0",
-    //   price: accessPointNetwork?.pricing?.price,
-    //   wholeSalePrice: accessPointNetwork?.pricing?.wholeSalePrice,
-    //   wholeSaleQty: accessPointNetwork?.pricing?.wholeSaleQty
-    //     ? accessPointNetwork.pricing?.wholeSaleQty?.toString()
-    //     : "",
-    //   isClientBasedPrice: accessPointNetwork?.pricing?.isClientBasedPrice,
-    //   priceWithVAT: accessPointNetwork?.pricing?.priceWithVAT,
-    // },
-
-    // deliveryInfo: {
-    //   height: accessPointNetwork?.deliveryInfo?.height,
-    //   heightUnit: accessPointNetwork?.deliveryInfo?.heightUnit,
-    //   width: accessPointNetwork?.deliveryInfo?.width,
-    //   widthUnit: accessPointNetwork?.deliveryInfo?.widthUnit,
-    //   length: accessPointNetwork?.deliveryInfo?.length,
-    //   lengthUnit: accessPointNetwork?.deliveryInfo?.lengthUnit,
-    //   weight: accessPointNetwork?.deliveryInfo?.weight,
-    //   weightUnit: accessPointNetwork?.deliveryInfo?.weightUnit,
-    //   volume: accessPointNetwork?.deliveryInfo?.volume ?? "",
-    //   volumeUnit: accessPointNetwork?.deliveryInfo?.volumeUnit ?? "mm",
-    //   packagingItems: accessPointNetwork?.deliveryInfo?.packagingItems
-    //     ? accessPointNetwork.deliveryInfo?.packagingItems?.toString()
-    //     : "",
-    //   deliveryTime: accessPointNetwork?.deliveryInfo?.deliveryTime,
-    // },
-
-    // inventoryInfo: {
-    //   barcode: accessPointNetwork?.inventoryInfo?.barcode,
-    //   qty: accessPointNetwork?.inventoryInfo?.qty
-    //     ? accessPointNetwork?.inventoryInfo?.qty?.toString()
-    //     : "",
-    //   room: accessPointNetwork?.inventoryInfo?.room,
-    //   shelf: accessPointNetwork?.inventoryInfo?.shelf,
-    //   reservedQty: accessPointNetwork?.inventoryInfo?.reservedQty
-    //     ? accessPointNetwork?.inventoryInfo?.reservedQty?.toString()
-    //     : "",
-    //   soldCount: accessPointNetwork?.inventoryInfo?.soldCount
-    //     ? accessPointNetwork?.inventoryInfo?.soldCount?.toString()
-    //     : "",
-    //   status: accessPointNetwork?.inventoryInfo?.status,
-    // },
-  } as any; // TODO: remove as any
+    id: String(network.id),
+    name: network.name,
+    ssid: network.ssid,
+    countryCode: network.countryCode,
+    wireless: {
+      vht: network.wireless[0].vht,
+      acs: network.wireless[0].acs,
+      beaconInterval: network.wireless[0].beaconInterval,
+      rtsCtsThreshold: network.wireless[0].rtsCtsThreshold,
+    },
+    security: {
+      wirelessSecurityType: String(network.security[0].wirelessSecurityType),
+      radius: network.security[0].radius,
+      eap: network.security[0].eap,
+      macACLType: String(network.security[0].macAclType),
+      macACLs: network.security[0].macAcls,
+    },
+  };
 };

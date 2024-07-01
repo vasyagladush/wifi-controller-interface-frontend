@@ -16,10 +16,11 @@ import {
   Button,
   ImageUploader,
   PageTitle,
+  Spinner,
   Typography,
   TypographyVariant,
 } from "../../../../../components/ui-kit";
-import { NewAccessPointFormValues, NetworkFormValues } from "./types";
+import { AccessPointFormValues, NetworkFormValues } from "./types";
 import { useGetAccessPoint } from "./hooks/useGetAccessPoint";
 import { useUpdateAccessPoint } from "./hooks/useEditAccessPoint";
 import { useDialogManager } from "../../../../../context/DialogManager";
@@ -33,21 +34,16 @@ import { useCheckModified } from "./hooks/useCheckModified";
 import { AccessPointsFilters } from "../access-points-list/hooks/useAccessPointsList";
 import NetworkWirelessConfig from "./components/NetworkWirelessConfig";
 import NetworkSecurityConfig from "./components/NetworkSecurityConfig";
+import { useGetNetwork } from "./hooks/useGetNetwork";
+import { components } from "../../../../../util/backend-api-types";
+
+const LoadingNetworkSpinner = styled(Spinner)`
+  margin: 20px auto;
+`;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const ImagesBox = styled.div`
-  display: flex;
-  box-sizing: border-box;
-  flex-direction: column;
-  margin-top: 10px;
-  padding: 30px;
-  background: #ffffff;
-  border: 1px solid #eeeeee;
-  border-radius: 10px;
 `;
 
 const Content = styled.div`
@@ -70,16 +66,23 @@ export const AddNewAccessPoint: React.FunctionComponent<{
 }> = ({ editing }) => {
   const navigate = useNavigate();
   const { showDialog } = useDialogManager();
-  // const { checkAccessByPolicies } = usePolicyCheck();
   const { id: accessPointId } = useParams();
   const { state } = useLocation();
-  const networkId = state?.networkId;
   const incomingNetworkFilters: Partial<AccessPointsFilters> = state?.filters;
 
   const { updateAccessPoint, loading: updateLoading } = useUpdateAccessPoint();
-  // const { refreshBrands } = useBrandsContext();
-  const { accessPointInfo, refreshAccessPointInfo, loading } =
-    useGetAccessPoint(accessPointId);
+  const {
+    accessPointFormInfo,
+    accessPointBackendInfo,
+    refreshAccessPointInfo,
+    loading,
+  } = useGetAccessPoint(accessPointId);
+  const networkId = state?.networkId;
+  const {
+    networkFormInfo,
+    refreshNetworkInfo,
+    loading: loadingNetwork,
+  } = useGetNetwork(networkId ?? accessPointBackendInfo?.networks[0].id);
 
   const [networksFilters, setNetworksFilters] = useState<
     Partial<AccessPointsFilters>
@@ -95,9 +98,8 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     useState<NetworkFormValues>();
 
   const { defaultValues } = useSetDefaultValues(
-    accessPointInfo,
-    currentDefaultNetworkValues,
-    editing
+    accessPointFormInfo,
+    currentDefaultNetworkValues
   );
 
   const {
@@ -108,7 +110,7 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     reset,
 
     formState: { isSubmitting },
-  } = useForm<NewAccessPointFormValues>({
+  } = useForm<AccessPointFormValues>({
     resolver: yupResolver(addNewAccessPointSchema),
     mode: "onChange",
     defaultValues,
@@ -117,46 +119,118 @@ export const AddNewAccessPoint: React.FunctionComponent<{
   const watchAll = watch();
   const currentNetworkFields = watch("network");
 
-  // const { data: availableIntegrations } = useListIntegrations();
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [triggerSetNetwork, setTriggerSetNetwork] = useState(false);
-  const [files, setFiles] = useState<File[]>();
-  const [imagesToDetach, setImagesToDetach] = useState<string[]>();
-  const [isOptionsEditingMode, setIsOptionsEditingMode] = useState(false);
+  // const [triggerSetNetwork, setTriggerSetNetwork] = useState(false);
 
   const { isAnythingModified, setIsAnythingModified } = useCheckModified(
     defaultValues,
-    watchAll,
-    files,
-    imagesToDetach
+    watchAll
   );
-
-  useEffect(() => {
-    reset(defaultValues);
-  }, [reset, accessPointInfo, currentDefaultNetworkValues]);
-
-  const handleFindCorrespondingNetwork = (id: string) => {
-    // const foundNetwork = accessPointNetworksList.filter((el) => el._id === id); // TODO
-    const foundNetwork = [].filter((el: any) => el._id === id);
-
-    return foundNetwork[0];
-  };
-
-  useEffect(() => {
-    if (triggerSetNetwork) {
-      const foundNetwork = handleFindCorrespondingNetwork(
-        currentNetworkFields.id
-      );
-      // handleNetworkSelect(foundNetwork ?? accessPointNetworksList[0], true); // TODO
-      handleNetworkSelect(foundNetwork, true);
-    }
-  }, [triggerSetNetwork, currentNetworkFields.id]); // TODO
-  // }, [triggerSetNetwork, accessPointNetworksList, currentNetworkFields.id]);
 
   const blocker = useBlocker(() => {
     return !!isAnythingModified && !isSubmitting;
   });
+
+  const handleFindCorrespondingNetwork = (id: string) => {
+    const foundNetwork = accessPointBackendInfo?.networks.filter(
+      (el) => String(el.id) === String(id)
+    );
+
+    return foundNetwork?.[0];
+  };
+
+  const prepareAccessPointWithNetworksForEditing = async () => {
+    debugger;
+    if (editing && accessPointId && !currentDefaultNetworkValues?.id) {
+      const foundNetwork = handleFindCorrespondingNetwork(networkId);
+      handleNetworkSelect(
+        networkId
+          ? foundNetwork
+            ? foundNetwork
+            : accessPointBackendInfo?.networks[0]!
+          : accessPointBackendInfo?.networks[0]!,
+        true
+      );
+      if (accessPointFormInfo) {
+        (
+          Object.keys(accessPointFormInfo) as Array<keyof AccessPointFormValues>
+        ).forEach((k) => {
+          setValue(k, accessPointFormInfo[k]!);
+        });
+      }
+      console.warn(accessPointFormInfo);
+    }
+  };
+
+  const handleNetworkSelect = (
+    network: components["schemas"]["APSchema"]["networks"][number],
+    avoidIsModified?: boolean
+  ) => {
+    if (isAnythingModified && !avoidIsModified) {
+      showDialog({
+        title: "Unsaved changes",
+        content:
+          "You have unsaved changes for this accessPoint and network. Please save them.",
+        actions: [
+          {
+            type: "outline",
+            text: "Cancel",
+          },
+          {
+            type: "primary",
+            text: "Save",
+            handler: async () => {
+              handleSubmit(onSubmit)();
+              setIsAnythingModified(false);
+            },
+          },
+        ],
+      });
+    } else {
+      refreshNetworkInfo(String(network.id));
+    }
+  };
+
+  const onSubmit = async (values: AccessPointFormValues) => {
+    try {
+      addNewAccessPointSchema.validate(values);
+      if (editing && accessPointId) {
+        await updateAccessPoint(accessPointId, currentNetworkFields.id, values);
+        // refreshBrands();
+        handleRefresh();
+      }
+    } catch (e: any) {
+      console.error(e);
+    }
+  };
+
+  const onBack = () => {
+    navigate(-1);
+  };
+
+  const handleRefresh = async () => {
+    try {
+      // setTriggerSetNetwork(true);
+
+      await refreshAccessPointInfo();
+
+      // setTriggerSetNetwork(false);
+    } catch (e) {}
+  };
+
+  const handleSetNetworksFilters = (filters: Record<string, any>) => {
+    setNetworksFilters(filters);
+  };
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [reset, accessPointFormInfo, currentDefaultNetworkValues]);
+
+  useEffect(() => {
+    if (accessPointBackendInfo) {
+      prepareAccessPointWithNetworksForEditing();
+    }
+    // }, [triggerSetNetwork, accessPointBackendInfo, currentNetworkFields?.id]);
+  }, [accessPointBackendInfo, currentNetworkFields?.id]);
 
   useEffect(() => {
     if (blocker.state === "blocked") {
@@ -181,108 +255,12 @@ export const AddNewAccessPoint: React.FunctionComponent<{
     }
   }, [blocker]);
 
-  const handleNetworkSelect = (network: any, avoidIsModified?: boolean) => {
-    if (isAnythingModified && !avoidIsModified) {
-      showDialog({
-        title: "Unsaved changes",
-        content:
-          "You have unsaved changes for this accessPoint and network. Please save them.",
-        actions: [
-          {
-            type: "outline",
-            text: "Cancel",
-          },
-          {
-            type: "primary",
-            text: "Save",
-            handler: async () => {
-              handleSubmit(onSubmit)();
-              setIsAnythingModified(false);
-            },
-          },
-        ],
-      });
-    } else {
-      const transformedNetwork =
-        transformNetworkServerInputToFormValues(network);
-      setValue("network", transformedNetwork);
-      setCurrentDefaultNetworkValues(transformedNetwork);
-    }
-  };
-
-  const prepareAccessPointWithNetworksForEditing = async () => {
-    if (editing && accessPointId && !currentDefaultNetworkValues?.id) {
-      const foundNetwork = handleFindCorrespondingNetwork(networkId);
-      // handleNetworkSelect(
-      //   networkId ? foundNetwork : accessPointNetworksList[0],
-      //   true
-      // );
-      // TODO
-      handleNetworkSelect(foundNetwork, true);
-      if (accessPointInfo) {
-        (
-          Object.keys(accessPointInfo) as Array<keyof NewAccessPointFormValues>
-        ).forEach((k) => {
-          setValue(k, accessPointInfo[k]);
-        });
-      }
-      console.warn(accessPointInfo);
-    }
-  };
-
-  // useEffect(() => {
-  //   setAvailableIntegrationsForCreation();
-  // }, [availableIntegrations]);
-
   useEffect(() => {
-    prepareAccessPointWithNetworksForEditing();
-  }, [accessPointInfo, accessPointInfo, currentDefaultNetworkValues?.id]);
-
-  const onSubmit = async (values: NewAccessPointFormValues) => {
-    try {
-      addNewAccessPointSchema.validate(values);
-      if (editing && accessPointId) {
-        await updateAccessPoint(
-          accessPointId,
-          currentNetworkFields.id,
-          values,
-          files,
-          imagesToDetach
-        );
-        // refreshBrands();
-        handleRefresh();
-      }
-    } catch (e: any) {
-      console.error(e);
+    if (networkFormInfo) {
+      setValue("network", networkFormInfo);
+      setCurrentDefaultNetworkValues(networkFormInfo);
     }
-  };
-
-  const onBack = () => {
-    navigate(-1);
-  };
-
-  const handleRefresh = async () => {
-    try {
-      setTriggerSetNetwork(true);
-
-      await refreshAccessPointInfo();
-
-      setTriggerSetNetwork(false);
-    } catch (e) {}
-  };
-
-  const handleOptionsEdit = (val: boolean) => {
-    setIsOptionsEditingMode(val);
-  };
-
-  const onNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
-
-  const handleSetNetworksFilters = (filters: Record<string, any>) => {
-    setNetworksFilters(filters);
-    setCurrentPage(1);
-  };
+  }, [networkFormInfo]);
 
   return (
     <AnimateAppearanceWrapper>
@@ -295,7 +273,7 @@ export const AddNewAccessPoint: React.FunctionComponent<{
 
         <Button
           onClick={handleSubmit(onSubmit)}
-          loading={loading || updateLoading}
+          loading={loading || loadingNetwork || updateLoading}
         >
           Save
         </Button>
@@ -306,13 +284,10 @@ export const AddNewAccessPoint: React.FunctionComponent<{
           {/* <AccessPointPreview control={control} networksLength={totalDocs} /> */}
           <AccessPointPreview control={control} networksLength={1} />
           <NetworksList
-            // networksListItems={accessPointNetworksList}
-            networksListItems={[]}
-            handleNextPage={onNextPage}
+            networksListItems={accessPointBackendInfo?.networks}
             setSelectedNetwork={handleNetworkSelect}
             selectedNetworkId={currentNetworkFields?.id}
-            // networkListLoading={networkListLoading}
-            networkListLoading={false}
+            networkListLoading={loading}
             setFilters={handleSetNetworksFilters}
             filterValues={networksFilters}
             handleFiltersClear={() => {
@@ -323,9 +298,17 @@ export const AddNewAccessPoint: React.FunctionComponent<{
 
         <RightSide>
           <BasicInfo control={control} />
-          <NetworkBasicInfo control={control} />
-          <NetworkWirelessConfig control={control} />
-          <NetworkSecurityConfig control={control} />
+          {loadingNetwork ? (
+            <>
+              <LoadingNetworkSpinner size={50} />
+            </>
+          ) : (
+            <>
+              <NetworkBasicInfo control={control} />
+              <NetworkWirelessConfig control={control} />
+              <NetworkSecurityConfig control={control} />
+            </>
+          )}
         </RightSide>
       </Content>
     </AnimateAppearanceWrapper>

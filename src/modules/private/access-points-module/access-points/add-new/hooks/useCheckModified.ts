@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 
 export const useCheckModified = (
-  defaultValues: Partial<NewAccessPointFormValues>,
-  watchAll: NewAccessPointFormValues,
-  files?: File[],
-  imagesToDetach?: string[]
+  defaultValues: Partial<AccessPointFormValues>,
+  watchAll: AccessPointFormValues
 ) => {
   const [isAnythingModified, setIsAnythingModified] = useState(false);
 
@@ -20,17 +18,12 @@ export const useCheckModified = (
         JSON.stringify(watchAll.deviceId) &&
       JSON.stringify(defaultValues.ip) === JSON.stringify(watchAll.ip);
 
-    if (isNetworkModified && isAccessPointModified && !files && !imagesToDetach) {
+    if (isNetworkModified && isAccessPointModified) {
       setIsAnythingModified(false);
     } else {
       setIsAnythingModified(true);
     }
-  }, [
-    JSON.stringify(defaultValues),
-    JSON.stringify(watchAll),
-    files,
-    imagesToDetach,
-  ]);
+  }, [JSON.stringify(defaultValues), JSON.stringify(watchAll)]);
 
   return { isAnythingModified, setIsAnythingModified };
 };

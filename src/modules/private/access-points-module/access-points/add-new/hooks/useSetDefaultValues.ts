@@ -1,18 +1,17 @@
 import { useMemo } from "react";
-import { NewAccessPointFormValues, NetworkFormValues } from "../types";
+import { AccessPointFormValues, NetworkFormValues } from "../types";
 
 export const useSetDefaultValues = (
-  accessPointInfo?: Partial<NewAccessPointFormValues>,
-  currentNetwork?: NetworkFormValues,
-  editing?: boolean
-) => {
+  accessPointInfo?: Partial<AccessPointFormValues>,
+  currentNetwork?: NetworkFormValues
+): { defaultValues: AccessPointFormValues } => {
   const defaultValues = useMemo(() => {
     return {
       name: accessPointInfo?.name ?? "",
       deviceId: accessPointInfo?.deviceId ?? 0,
       ip: accessPointInfo?.ip ?? "",
       network: {
-        id: currentNetwork?.id ?? 0,
+        id: currentNetwork?.id ?? "0",
         name: currentNetwork?.name ?? "",
         ssid: currentNetwork?.ssid ?? "",
         countryCode: currentNetwork?.countryCode ?? "",
@@ -24,10 +23,10 @@ export const useSetDefaultValues = (
         },
         security: {
           wirelessSecurityType:
-            currentNetwork?.security?.wirelessSecurityType ?? 0, // TYPE-TODO: add enum from backend types
+            currentNetwork?.security?.wirelessSecurityType ?? "0", // TYPE-TODO: add enum from backend types
           radius: currentNetwork?.security?.radius ?? "",
-          eap: currentNetwork?.security?.eap ?? "",
-          macACLType: currentNetwork?.security?.macACLType ?? 0, // TYPE-TODO: add enum from backend types
+          eap: currentNetwork?.security?.eap ?? false,
+          macACLType: currentNetwork?.security?.macACLType ?? "0", // TYPE-TODO: add enum from backend types
           macACLs: currentNetwork?.security?.macACLs ?? [],
         },
       },

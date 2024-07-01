@@ -1,5 +1,5 @@
 import { Control, UseFormWatch, useWatch } from "react-hook-form";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 import {
   DropdownFormField,
   TextFormInput,
@@ -29,7 +29,7 @@ const Label = styled(Typography)`
 `;
 
 interface NetworkBasicInfoProps {
-  control: Control<NewAccessPointFormValues>;
+  control: Control<AccessPointFormValues>;
 }
 
 const NetworkBasicInfo: React.FunctionComponent<NetworkBasicInfoProps> = ({

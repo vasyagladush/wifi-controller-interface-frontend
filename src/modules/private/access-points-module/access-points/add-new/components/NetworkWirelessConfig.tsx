@@ -1,5 +1,5 @@
 import { Control, UseFormWatch } from "react-hook-form";
-import { NewAccessPointFormValues } from "../types";
+import { AccessPointFormValues } from "../types";
 import {
   CheckboxFormField,
   DropdownFormField,
@@ -34,7 +34,7 @@ const StyledCheckBoxFormField = styled(CheckboxFormField)`
 `;
 
 interface NetworkWirelessConfigProps {
-  control: Control<NewAccessPointFormValues>;
+  control: Control<AccessPointFormValues>;
 }
 
 const NetworkWirelessConfig: React.FunctionComponent<

@@ -3,25 +3,15 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import {
-  Actions,
-  Checkbox,
   PaginationControl,
   ReactTableComponent,
-  RowSelectionControl,
-  Status,
-  TooltipText,
-  Typography,
-  TypographyVariant,
 } from "../../../../components/ui-kit";
 import { ExpandableAccessPointAndNetworksTreeCell } from "./components/ExpandableAccessPointAndNetworksTreeCell";
 import { useNavigate } from "react-router-dom";
 import { useDialogManager } from "../../../../context/DialogManager";
 import { AppRoutes } from "../../../../constants/routes";
-import { Question } from "../../../../components/icons";
-import { CategoriesWrapper, Li } from "../../../../components/containers";
 import { AccessPointsFilters } from "../access-points/access-points-list/hooks/useAccessPointsList";
 import { components } from "../../../../util/backend-api-types";
-import { getNetworkFromTableRowData } from "../../../../util/data-utils";
 import { AccessPointTypeForTables } from "../../../../util/types";
 
 type AccessPointApiType = components["schemas"]["APSchema"];
@@ -57,35 +47,6 @@ const StyledReactTableComponent = styled(ReactTableComponent)<{
       }
     }
   }
-`;
-
-const StyledTooltipText = styled(TooltipText)`
-  display: inline;
-
-  a {
-    svg {
-      margin-bottom: -3px;
-    }
-  }
-`;
-
-const StyledQuestionIcon = styled(Question)`
-  margin-left: 3px;
-  cursor: pointer;
-  color: #13273f;
-`;
-
-const InStockCell = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
-
-const StatusDot = styled.div<{ inStock: boolean }>`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: ${({ inStock }) => (inStock ? "#2cd19e" : "#ef6355")};
 `;
 
 interface AccessPointsTableTreeProps {

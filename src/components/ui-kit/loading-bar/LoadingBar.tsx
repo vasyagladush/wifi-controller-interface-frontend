@@ -14,6 +14,6 @@ export const LoadingBar: FC<{
   className?: string;
 }> = ({ loading, className, margin }) => (
   <LoadWrapper className={className} loading={loading} margin={margin}>
-    <BarLoader width="100%" height={3} color="#6CB155" loading={loading} />
+    <BarLoader width="100%" height={3} color="#00bc82" loading={loading} />
   </LoadWrapper>
 );

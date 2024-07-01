@@ -200,6 +200,42 @@ class Api {
         ...filter,
       });
 
+      return {
+        docs: [
+          {
+            id: 1,
+            deviceId: 101,
+            name: "Lobby AP",
+            ip: "192.168.1.10",
+            networks: [
+              {
+                id: 1,
+                name: "Guest Network",
+              },
+              {
+                id: 2,
+                name: "Office Network",
+              },
+            ],
+          },
+          {
+            id: 2,
+            deviceId: 102,
+            name: "Conference Room AP",
+            ip: "192.168.1.11",
+            networks: [
+              {
+                id: 3,
+                name: "Private Network",
+              },
+            ],
+          },
+        ],
+        totalDocs: 2,
+        totalPages: 1,
+        hasNextPage: false,
+      };
+
       const url = new URL(this.mainUrl + `access-points/?${queryString}`);
       const result = await this.fetcher(url.toString(), {
         method: "GET",
@@ -215,17 +251,146 @@ class Api {
     }
   }
 
-  async getProduct(id: string) {
+  async getAccessPoint(
+    id: string | number
+  ): Promise<components["schemas"]["APSchema"] | undefined> {
     try {
-      const url = new URL(
-        `${this.mainUrl}internal/inventory/product/${id}/data`
-      );
+      return {
+        id: 1,
+        deviceId: 5,
+        name: "Floor 1 AP",
+        ip: "192.168.1.6",
+        networks: [
+          {
+            id: 1,
+            name: "Guests",
+          },
+          {
+            id: 2,
+            name: "Employees",
+          },
+        ],
+      };
+
+      const url = new URL(`${this.mainUrl}access-points/${id}/`);
       const result = await this.fetcher(url.toString(), {
         method: "get",
         headers: this.defaultHeaders,
       });
       const data = await result.json();
-      return data.data;
+      return data;
+    } catch (e: any) {
+      console.warn(e);
+    }
+  }
+
+  async getNetwork(
+    id: string | number
+  ): Promise<components["schemas"]["NetworkGigaSchema"] | undefined> {
+    try {
+      return String(id) === "1"
+        ? {
+            id: 1,
+            name: "Corporate Network",
+            ssid: "CorpNet",
+            countryCode: "US",
+            accessPoints: [
+              {
+                id: 1,
+                deviceId: 101,
+                name: "Lobby AP",
+                ip: "192.168.1.10",
+              },
+              {
+                id: 2,
+                deviceId: 102,
+                name: "Conference Room AP",
+                ip: "192.168.1.11",
+              },
+            ],
+            wireless: [
+              {
+                id: 1,
+                name: "Wireless Profile 1",
+                vht: true,
+                acs: true,
+                beaconInterval: 100,
+                rtsCtsThreshold: 2347,
+              },
+            ],
+            security: [
+              {
+                id: 1,
+                name: "Security Profile 1",
+                wirelessSecurityType: 4,
+                radius: "192.168.1.2",
+                eap: true,
+                macAclType: 2,
+                macAcls: [
+                  {
+                    id: 1,
+                    name: "ACL 1",
+                    macs: ["01:01:01:01:01:01", "02:02:02:02:02:02"],
+                  },
+                ],
+              },
+            ],
+          }
+        : {
+            id: 2,
+            name: "Guests Network",
+            ssid: "GuestNet",
+            countryCode: "PL",
+            accessPoints: [
+              {
+                id: 1,
+                deviceId: 101,
+                name: "Lobby AP",
+                ip: "192.168.1.10",
+              },
+              {
+                id: 2,
+                deviceId: 102,
+                name: "Conference Room AP",
+                ip: "192.168.1.11",
+              },
+            ],
+            wireless: [
+              {
+                id: 1,
+                name: "Wireless Profile 1",
+                vht: true,
+                acs: true,
+                beaconInterval: 100,
+                rtsCtsThreshold: 2347,
+              },
+            ],
+            security: [
+              {
+                id: 1,
+                name: "Security Profile 1",
+                wirelessSecurityType: 4,
+                radius: "192.168.1.2",
+                eap: true,
+                macAclType: 2,
+                macAcls: [
+                  {
+                    id: 1,
+                    name: "ACL 1",
+                    macs: ["01:01:01:01:01:01", "02:02:02:02:02:02"],
+                  },
+                ],
+              },
+            ],
+          };
+
+      const url = new URL(`${this.mainUrl}networks/${id}/`);
+      const result = await this.fetcher(url.toString(), {
+        method: "get",
+        headers: this.defaultHeaders,
+      });
+      const data = await result.json();
+      return data;
     } catch (e: any) {
       console.warn(e);
     }

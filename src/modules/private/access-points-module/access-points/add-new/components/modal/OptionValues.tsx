@@ -61,7 +61,7 @@ const OptionValues = ({ nestIndex, control, register }: any) => {
 
       <LongButton margin={!!fields.length}>
         <LongButtonText
-          network={TypographyVariant.BODY2}
+          variant={TypographyVariant.BODY2}
           onClick={() => {
             append("");
           }}

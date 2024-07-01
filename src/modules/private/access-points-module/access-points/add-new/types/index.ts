@@ -10,15 +10,15 @@ export interface NetworkFormValues {
     rtsCtsThreshold: number;
   };
   security: {
-    wirelessSecurityType: number; // TYPE-TODO: add enum from backend types
+    wirelessSecurityType: string; // TYPE-TODO: add enum from backend types
     radius?: string;
-    eap: string;
-    macACLType: number; // TYPE-TODO: add enum from backend types
+    eap: boolean;
+    macACLType: string; // TYPE-TODO: add enum from backend types
     macACLs: Array<{ macs: Array<string> }>;
   };
 }
 
-export interface NewAccessPointFormValues {
+export interface AccessPointFormValues {
   name: string;
   deviceId: number;
   ip: string;
